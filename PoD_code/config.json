@@ -1,0 +1,15 @@
+{
+    "brokerURL": "wss://broker.emqx.io:8084/mqtt",
+    "inputTopic": "input",
+    "outputTopic": "output",
+    "inputs": [
+        {"name": "Temperature", "value": ""},
+        {"name": "Pressure", "value": ""},
+        {"name": "Humidity", "value": ""},
+        {"name": "Speed", "value": ""},
+        {"name": "Voltage", "value": ""}
+    ],
+    "outputs": [
+        {"name": "Target", "value": ""}
+    ]
+}

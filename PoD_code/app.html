@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collaborative Intelligence Component</title>
+
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --border:#e2e8f0;
+      --primary:#2563eb;
+      --primary2:#1d4ed8;
+      --ok:#16a34a;
+      --warn:#f59e0b;
+      --bad:#dc2626;
+      --shadow: 0 10px 30px rgba(2,6,23,0.10);
+      --shadow2: 0 6px 18px rgba(2,6,23,0.08);
+      --r:14px;
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:Roboto,system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 10% 0%, rgba(37,99,235,0.18), rgba(37,99,235,0) 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(99,102,241,0.16), rgba(99,102,241,0) 60%),
+        var(--bg);
+    }
+
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background:rgba(255,255,255,0.80);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    .topbar-inner{
+      max-width:1280px;
+      margin:0 auto;
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:280px;
+    }
+
+    .brand img{
+      width:44px; height:44px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow2);
+      background:#fff;
+      object-fit:cover;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:16px;
+      font-weight:800;
+      letter-spacing:0.2px;
+    }
+
+    .brand p{
+      margin:0;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:14px;
+      box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+      transition: transform 0.08s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
+    }
+
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow: var(--shadow2);
+      border-color:#cbd5e1;
+    }
+
+    .btn:disabled{
+      opacity:0.5;
+      cursor:not-allowed;
+      transform:none;
+      box-shadow:none;
+    }
+
+    .btn-primary{
+      background:var(--primary);
+      border-color:var(--primary);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:var(--primary2);
+      border-color:var(--primary2);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background:var(--muted);
+    }
+    .dot.ok{background:var(--ok);}
+    .dot.warn{background:var(--warn);}
+    .dot.bad{background:var(--bad);}
+
+    main{
+      max-width:1280px;
+      margin:0 auto;
+      padding:18px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width:1100px){
+      .grid{grid-template-columns:1fr;}
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .card-header{
+      padding:14px 16px;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .title{
+      margin:0;
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:0.2px;
+    }
+    .subtitle{
+      margin:4px 0 0 0;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:600;
+      max-width:820px;
+    }
+
+    .card-body{ padding:14px 16px 18px; }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .radio-group{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .radio-chip{
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:13px;
+      font-weight:900;
+      color:var(--muted);
+      background:#fff;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      cursor:pointer;
+      user-select:none;
+    }
+    .radio-chip input{ accent-color: var(--primary); }
+
+    input[type="file"]{
+      border:1px solid var(--border);
+      padding:10px 12px;
+      border-radius:12px;
+      background:#fff;
+      font-weight:800;
+      color:var(--muted);
+      max-width:330px;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width:900px){
+      .two-col{grid-template-columns:1fr;}
+    }
+
+    .callout{
+      border:1px solid var(--border);
+      border-radius:14px;
+      background: linear-gradient(180deg, rgba(37,99,235,0.06), rgba(37,99,235,0));
+      padding:12px 12px;
+    }
+
+    .callout h3{
+      margin:0;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .callout ul{
+      margin:10px 0 0 18px;
+      padding:0;
+      color:#0f172a;
+      font-weight:700;
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    .callout li{ color:#0f172a; }
+    .callout span.k{
+      font-weight:900;
+      color:#0f172a;
+    }
+
+    .meter{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+
+    .bar{
+      width:260px;
+      max-width:100%;
+      height:10px;
+      border-radius:999px;
+      background:#e5e7eb;
+      overflow:hidden;
+      border:1px solid var(--border);
+    }
+    .bar > div{
+      height:100%;
+      width:0%;
+      background: var(--warn);
+      transition: width 0.15s ease;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:900;
+      border:1px solid var(--border);
+      background:#fff;
+      min-width:88px;
+    }
+    .b-ok{ border-color: rgba(22,163,74,0.35); background: rgba(22,163,74,0.10); color:#065f1e; }
+    .b-warn{ border-color: rgba(245,158,11,0.35); background: rgba(245,158,11,0.10); color:#7c4a03; }
+    .b-bad{ border-color: rgba(220,38,38,0.35); background: rgba(220,38,38,0.10); color:#7f1d1d; }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+    }
+
+    thead th{
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:#f8fafc;
+      border-bottom:1px solid var(--border);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      color:#334155;
+      padding:12px;
+    }
+
+    tbody td{
+      border-bottom:1px solid var(--border);
+      padding:12px;
+      text-align:center;
+      font-size:13px;
+      font-weight:700;
+      color:#0f172a;
+      vertical-align:middle;
+    }
+
+    tbody tr:last-child td{ border-bottom:none; }
+    tbody tr:hover td{ background:#f8fafc; }
+
+    tr.ok td{ background: rgba(22,163,74,0.10); }
+    tr.non-ok td{ background: rgba(220,38,38,0.10); }
+    tr.rejected td{ background: rgba(100,116,139,0.12) !important; opacity:0.92; }
+
+    .target-input{
+      width:64px;
+      padding:8px 8px;
+      font-size:13px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      outline:none;
+      text-align:center;
+      font-weight:900;
+      background:#fff;
+    }
+    .target-input:focus{
+      border-color:#93c5fd;
+      box-shadow: 0 0 0 4px rgba(147,197,253,0.35);
+    }
+
+    .reasons-input{
+      width:100%;
+      padding:8px 10px;
+      font-size:12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      outline:none;
+      background:#fff;
+      font-weight:700;
+      color:#0f172a;
+    }
+    .reasons-input:focus{
+      border-color:#93c5fd;
+      box-shadow: 0 0 0 4px rgba(147,197,253,0.35);
+    }
+
+    select{
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#fff;
+      font-weight:800;
+      color:#334155;
+      max-width:360px;
+    }
+
+    .pod-badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:900;
+      border:1px solid var(--border);
+      background:#fff;
+      min-width:78px;
+    }
+    .pod-ok{ border-color: rgba(22,163,74,0.35); background: rgba(22,163,74,0.10); color:#065f1e; }
+    .pod-fail{ border-color: rgba(220,38,38,0.35); background: rgba(220,38,38,0.10); color:#7f1d1d; }
+    .pod-pending{ border-color: rgba(100,116,139,0.35); background: rgba(100,116,139,0.10); color:#334155; }
+
+    .status-cell{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .status-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:#fff;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+      user-select:none;
+    }
+    .status-chip input{ accent-color: var(--primary); }
+
+    .chart-wrap{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      overflow:hidden;
+      background:#fff;
+    }
+
+    .small{
+      font-size:12px;
+      font-weight:800;
+      color:var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Logo">
+        <div>
+          <h1>Collaborative Intelligence Component</h1>
+          <p>PoD guidance and label gating</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="http://localhost:8501/?file_url=C:/Users/martinez/Documents/GitHub/ci-component/data.csv" target="_blank" rel="noreferrer">Input Analysis</a>
+        <a class="btn" href="#temperatureChart">Output Analysis</a>
+
+        <span class="pill" title="MQTT connection status">
+          <span id="statusDot" class="dot bad"></span>
+          <span id="statusText">Not connected</span>
+        </span>
+
+        <span id="streamMode" class="badge b-warn" title="Stream-level reliability monitor">
+          Mode: Warmup
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="grid">
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <div class="title">Operator console</div>
+            <div class="subtitle">
+              Goal: get <span class="k">PoD ✓</span>. Start interaction on a row, review features, then choose OK or Non-OK once the timer turns green.
+            </div>
+          </div>
+          <div class="radio-group">
+            <label class="radio-chip"><input type="radio" name="scoreType" value="accuracy" checked> Accuracy</label>
+            <label class="radio-chip"><input type="radio" name="scoreType" value="energy-efficiency"> Energy-efficiency</label>
+            <label class="radio-chip"><input type="radio" name="scoreType" value="latency"> Latency</label>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="row" style="margin-bottom:12px;">
+            <div>
+              <button id="loadConfigButton" class="btn btn-primary">Load Config</button>
+              <button id="connectButton" class="btn btn-primary" disabled>Connect</button>
+              <button id="disconnectButton" class="btn" disabled>Disconnect</button>
+            </div>
+
+            <div style="width:420px; max-width:100%;">
+              <div id="barChart"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+              <input type="file" id="csvFileInput" accept=".csv">
+              <button id="loadCsvButton" class="btn btn-primary">Send CSV</button>
+              <button id="exportNonOkButton" class="btn">Export Non-OK (PoD-valid)</button>
+              <button id="genAIButton" class="btn">GenAI</button>
+              <button id="recalibrateButton" class="btn">Recalibrate</button>
+            </div>
+
+            <div class="meter" style="justify-content:flex-end;">
+              <span class="small">PoD timer:</span>
+              <span id="podTimerBadge" class="badge b-warn" title="Turns green when recommended time is reached">
+                Waiting
+              </span>
+              <div class="bar" title="Progress toward recommended deliberation time">
+                <div id="podTimerBar"></div>
+              </div>
+              <span id="podTimerText" class="small">Select a row to start</span>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="callout">
+              <h3>How to get PoD ✓</h3>
+              <ul>
+                <li>Click a row, then open the <span class="k">Features</span> dropdown at least once.</li>
+                <li>Wait until the PoD timer badge turns <span class="k">green</span> (usually 0.8s to 2.5s).</li>
+                <li>If Non-OK, enter a short reason (3 to 10 words) before selecting status.</li>
+                <li>Avoid rhythmic clicks across rows. Natural variation is good.</li>
+              </ul>
+            </div>
+
+            <div class="callout">
+              <h3>Why PoD can fail</h3>
+              <ul>
+                <li>Status chosen too quickly after first interaction.</li>
+                <li>No feature inspection signal (dropdown never opened).</li>
+                <li>Stream in Caution mode: repeated fast commits detected.</li>
+                <li>Very low variability in timing for many consecutive rows.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <div class="title">Predicted vs Target</div>
+            <div class="subtitle">Updates when prediction arrives</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-wrap">
+            <div id="temperatureChart"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:16px;">
+      <div class="card-header">
+        <div>
+          <div class="title">Streaming log</div>
+          <div class="subtitle">PoD is per-row. Stream mode is global (Warmup, Normal, Caution).</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Features</th>
+              <th>Target</th>
+              <th>Predicted</th>
+              <th>Status</th>
+              <th>PoD</th>
+              <th>AI Explanation</th>
+            </tr>
+          </thead>
+          <tbody id="logTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let client;
+    let isConnected = false;
+    let config = {};
+
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    const connectBtn = document.getElementById('connectButton');
+    const disconnectBtn = document.getElementById('disconnectButton');
+
+    const streamModeEl = document.getElementById('streamMode');
+
+    const podTimerBadge = document.getElementById('podTimerBadge');
+    const podTimerBar = document.getElementById('podTimerBar');
+    const podTimerText = document.getElementById('podTimerText');
+
+    const logTable = document.getElementById('logTable');
+    let publishedRows = [];
+    let csvLines = [];
+    let okCount = 0;
+    let nonOkCount = 0;
+    let rowCounter = 0;
+
+    // ---------------------------
+    // PoD policy: per-row admission + stream-level mode
+    // ---------------------------
+    const POD = {
+      // Per-row admission gate (anchored deliberation)
+      baseBetaSec: 0.9,
+      alphaSecPerComplexity: 0.08,
+      bandSec: 1.35,
+      logisticK: 2.2,
+      admissionThresholdNormal: 0.22,
+      admissionThresholdCaution: 0.40,
+
+      // Complexity
+      wFeatures: 1.0,
+      wEdits: 2.0,
+      wGap: 0.15,
+      gapCap: 50,
+
+      // Stream monitor
+      monitorWindow: 25,
+      cvMin: 0.05,
+      cvMax: 2.0,
+      couplingEpsilon: 0.12,
+      minSamplesForMonitor: 15,
+
+      // Caution escalation
+      fastCommitSec: 0.45,
+      consecutiveFastToCaution: 6,
+      consecutiveBadMonitorToCaution: 3
+    };
+
+    const streamState = {
+      mode: 'Warmup',                 // Warmup | Normal | Caution
+      historyDelib: [],
+      historyComp: [],
+      consecutiveFast: 0,
+      consecutiveBadMonitor: 0
+    };
+
+    // live timer focus
+    let activeRow = null;
+    let timerInterval = null;
+
+    function nowMs(){ return Date.now(); }
+    function safeNum(x){ const n = Number(x); return Number.isFinite(n) ? n : null; }
+    function clampNumber(x, lo, hi){ return Math.max(lo, Math.min(hi, x)); }
+
+    function setConnection(connected, text){
+      statusText.textContent = text;
+      statusDot.classList.remove('ok','warn','bad');
+      statusDot.classList.add(connected ? 'ok' : 'bad');
+    }
+
+    function setStreamMode(mode, detail){
+      streamState.mode = mode;
+      streamModeEl.classList.remove('b-ok','b-warn','b-bad');
+      if (mode === 'Normal') streamModeEl.classList.add('b-ok');
+      else if (mode === 'Caution') streamModeEl.classList.add('b-bad');
+      else streamModeEl.classList.add('b-warn');
+      streamModeEl.textContent = `Mode: ${mode}`;
+      streamModeEl.title = detail || '';
+    }
+
+    function setPodTimerUI(state, percent, text){
+      podTimerBar.style.width = `${clampNumber(percent,0,100)}%`;
+
+      podTimerBadge.classList.remove('b-ok','b-warn','b-bad');
+      if (state === 'ok') podTimerBadge.classList.add('b-ok');
+      else if (state === 'bad') podTimerBadge.classList.add('b-bad');
+      else podTimerBadge.classList.add('b-warn');
+
+      podTimerBadge.textContent = (state === 'ok') ? 'Ready' : (state === 'bad' ? 'Too fast' : 'Waiting');
+      podTimerText.textContent = text;
+    }
+
+    function setPodBadge(row, state, detailText){
+      const badge = row.querySelector('td[data-pod-cell="true"] span');
+      if (!badge) return;
+
+      badge.classList.remove('pod-ok','pod-fail','pod-pending');
+      if (state === 'ok') {
+        badge.classList.add('pod-ok');
+        badge.textContent = 'PoD ✓';
+      } else if (state === 'fail') {
+        badge.classList.add('pod-fail');
+        badge.textContent = 'PoD ✗';
+      } else {
+        badge.classList.add('pod-pending');
+        badge.textContent = 'PoD …';
+      }
+      badge.title = detailText || '';
+    }
+
+    function markRejected(row, isRejected, why){
+      if (isRejected){
+        row.classList.add('rejected');
+        row.dataset.podValid = 'false';
+        row.dataset.podWhy = why || '';
+      } else {
+        row.classList.remove('rejected');
+        row.dataset.podWhy = '';
+      }
+    }
+
+    function ensureAnchoredStart(row){
+      if (row.dataset.firstInteractionMs) return;
+      row.dataset.firstInteractionMs = String(nowMs());
+    }
+
+    function countDistinct(arr, eps = 1e-6){
+      const s = [...arr].sort((a,b)=>a-b);
+      let c = 0;
+      for (let i=0;i<s.length;i++){
+        if (i===0 || Math.abs(s[i]-s[i-1])>eps) c++;
+      }
+      return c;
+    }
+
+    function spearmanRho(xs, ys){
+      const n = Math.min(xs.length, ys.length);
+      if (n < 2) return 0;
+
+      function rank(arr){
+        const pairs = arr.map((v,i)=>({v,i})).sort((a,b)=>a.v-b.v);
+        const r = new Array(arr.length);
+        let i=0;
+        while(i<pairs.length){
+          let j=i;
+          while(j+1<pairs.length && pairs[j+1].v===pairs[i].v) j++;
+          const avg = (i+j+2)/2;
+          for(let k=i;k<=j;k++) r[pairs[k].i]=avg;
+          i=j+1;
+        }
+        return r;
+      }
+
+      const rx = rank(xs.slice(0,n));
+      const ry = rank(ys.slice(0,n));
+      const mean = a => a.reduce((s,v)=>s+v,0)/a.length;
+
+      const mx=mean(rx), my=mean(ry);
+      let num=0, dx=0, dy=0;
+      for(let i=0;i<n;i++){
+        const ax=rx[i]-mx;
+        const ay=ry[i]-my;
+        num += ax*ay;
+        dx += ax*ax;
+        dy += ay*ay;
+      }
+      const den = Math.sqrt(dx*dy);
+      return den===0 ? 0 : (num/den);
+    }
+
+    function coeffOfVariation(arr){
+      if (arr.length < 2) return null;
+      const mean = arr.reduce((s,v)=>s+v,0)/arr.length;
+      if (mean === 0) return null;
+      const varSum = arr.reduce((s,v)=>s+(v-mean)*(v-mean),0);
+      const sd = Math.sqrt(varSum/(arr.length-1));
+      return sd/mean;
+    }
+
+    function admissionScore(delibSec, complexity){
+      const beta = POD.baseBetaSec + POD.alphaSecPerComplexity * complexity;
+      const band = POD.bandSec;
+      const k = POD.logisticK;
+      const logistic = x => 1/(1+Math.exp(-x));
+
+      const fast = logistic(k * (delibSec - (beta - band)));
+      const slow = logistic(k * ((beta + band) - delibSec));
+      return { beta, Vt: fast*slow };
+    }
+
+    function computeTaskComplexity(row){
+      const featureSelect = row.querySelector('td:nth-child(2) select');
+      const nf = featureSelect ? featureSelect.options.length : 0;
+
+      let ne = 0;
+      const targetInput = row.querySelector('td:nth-child(3) input');
+      if (targetInput) {
+        const initial = row.dataset.initialTarget ?? '';
+        if (String(targetInput.value) !== String(initial)) ne += 1;
+      }
+      const reasonsInput = row.querySelector('td:nth-child(7) input');
+      if (reasonsInput && reasonsInput.value.trim().length > 0) ne += 1;
+
+      const predictedCell = row.querySelector('td:nth-child(4)');
+      let gap = 0;
+      if (predictedCell && targetInput){
+        const p = safeNum(predictedCell.textContent);
+        const t = safeNum(targetInput.value);
+        if (p !== null && t !== null) gap = Math.abs(p - t);
+      }
+      gap = clampNumber(gap, 0, POD.gapCap);
+
+      return POD.wFeatures*nf + POD.wEdits*ne + POD.wGap*gap;
+    }
+
+    // Stream-level reliability monitor (does not decide per-row directly)
+    function updateStreamMonitor(){
+      const n = Math.min(streamState.historyDelib.length, streamState.historyComp.length);
+      if (n < POD.minSamplesForMonitor){
+        setStreamMode('Warmup', 'Collecting enough samples for stream monitor');
+        return;
+      }
+
+      const w = POD.monitorWindow;
+      const xs = streamState.historyDelib.slice(-w);
+      const ys = streamState.historyComp.slice(-w);
+
+      // Variability check
+      const cv = coeffOfVariation(xs);
+      let okV = true;
+      if (cv !== null) {
+        okV = (cv >= POD.cvMin && cv <= POD.cvMax);
+      }
+
+      // Coupling check, only if there is enough variability in both series
+      let okC = true;
+      const distinctX = countDistinct(xs);
+      const distinctY = countDistinct(ys);
+      let rho = null;
+      if (distinctX >= 5 && distinctY >= 5) {
+        rho = spearmanRho(xs, ys);
+        okC = rho > POD.couplingEpsilon;
+      }
+
+      const ok = okV && okC;
+
+      if (!ok) streamState.consecutiveBadMonitor += 1;
+      else streamState.consecutiveBadMonitor = 0;
+
+      if (streamState.consecutiveBadMonitor >= POD.consecutiveBadMonitorToCaution) {
+        setStreamMode('Caution', `Monitor warning (CV=${cv !== null ? cv.toFixed(2) : 'n/a'}, rho=${rho !== null ? rho.toFixed(2) : 'n/a'})`);
+      } else if (streamState.mode !== 'Caution') {
+        setStreamMode('Normal', `Monitor ok (CV=${cv !== null ? cv.toFixed(2) : 'n/a'}, rho=${rho !== null ? rho.toFixed(2) : 'n/a'})`);
+      }
+    }
+
+    // Per-row PoD verification
+    function verifyPoDForRow(row){
+      const startMs = safeNum(row.dataset.firstInteractionMs);
+      if (!startMs) return { ok:false, why:'No anchored start recorded' };
+
+      // feature inspection requirement
+      const inspected = (row.dataset.featuresOpened === 'true');
+
+      const commitMs = nowMs();
+      const delibSec = clampNumber((commitMs - startMs)/1000, 0, 10000);
+      const complexity = computeTaskComplexity(row);
+
+      const { beta, Vt } = admissionScore(delibSec, complexity);
+
+      // track stream history
+      streamState.historyDelib.push(delibSec);
+      streamState.historyComp.push(complexity);
+
+      // fast commit streak detection
+      if (delibSec < POD.fastCommitSec) streamState.consecutiveFast += 1;
+      else streamState.consecutiveFast = 0;
+
+      if (streamState.consecutiveFast >= POD.consecutiveFastToCaution) {
+        setStreamMode('Caution', `Many fast commits (<${POD.fastCommitSec}s) detected`);
+      }
+
+      updateStreamMonitor();
+
+      // threshold depends on mode
+      const thr = (streamState.mode === 'Caution') ? POD.admissionThresholdCaution : POD.admissionThresholdNormal;
+
+      // requirement: inspected features at least once
+      const admissionOk = (Vt >= thr);
+      const inspectedOk = inspected;
+
+      const ok = admissionOk && inspectedOk;
+
+      const why = [
+        `Delib=${delibSec.toFixed(2)}s`,
+        `C=${complexity.toFixed(1)}`,
+        `beta=${beta.toFixed(2)}s`,
+        `Vt=${Vt.toFixed(2)} (thr=${thr.toFixed(2)})${admissionOk ? '' : ' fail'}`,
+        `FeaturesOpened=${inspected ? 'yes' : 'no'}${inspectedOk ? '' : ' fail'}`,
+        `Mode=${streamState.mode}`
+      ].join(' | ');
+
+      return { ok, why, delibSec, beta };
+    }
+
+    // Live PoD timer for the active row
+    function startTimerForRow(row){
+      activeRow = row;
+      if (timerInterval) clearInterval(timerInterval);
+
+      timerInterval = setInterval(() => {
+        if (!activeRow) return;
+
+        const startMs = safeNum(activeRow.dataset.firstInteractionMs);
+        if (!startMs) {
+          setPodTimerUI('warn', 0, 'Select a row to start');
+          return;
+        }
+
+        const delibSec = (nowMs() - startMs)/1000;
+        const complexity = computeTaskComplexity(activeRow);
+        const { beta } = admissionScore(delibSec, complexity);
+
+        // recommended target time is beta - 0.25 (so the operator does not over-wait)
+        const target = Math.max(0.55, beta - 0.25);
+        const pct = clampNumber((delibSec / target) * 100, 0, 125);
+
+        // make it green only after:
+        // - features opened
+        // - time reached target
+        const inspected = (activeRow.dataset.featuresOpened === 'true');
+        const ready = inspected && delibSec >= target;
+
+        if (delibSec < 0.25) {
+          setPodTimerUI('bad', pct, `Too fast. Inspect features, then wait ~${target.toFixed(1)}s`);
+        } else if (!inspected) {
+          setPodTimerUI('warn', pct, `Open Features dropdown, then wait ~${target.toFixed(1)}s`);
+        } else if (!ready) {
+          setPodTimerUI('warn', pct, `Good. Wait ~${(target - delibSec).toFixed(1)}s`);
+        } else {
+          setPodTimerUI('ok', 100, `Ready. Select OK or Non-OK`);
+        }
+      }, 120);
+    }
+
+    // ---------------------------
+    // Plotly
+    // ---------------------------
+    function createTrace(name, color){
+      return { x:[], y:[], mode:'lines', name, line:{color} };
+    }
+    const predictedTrace = createTrace('Predicted','red');
+    const targetTrace = createTrace('Target','blue');
+
+    Plotly.newPlot('temperatureChart', [predictedTrace, targetTrace], {
+      title: 'Predicted vs Target Over Time',
+      xaxis: { title: 'Time' },
+      yaxis: { title: 'Value' },
+      margin: { l: 50, r: 30, t: 60, b: 50 }
+    });
+
+    Plotly.newPlot('barChart', [{
+      x: ['OK','Non-OK'],
+      y: [0,0],
+      type: 'bar',
+      marker: { color: ['#16a34a','#dc2626'] }
+    }], {
+      title: 'Status',
+      margin: { l: 50, r: 20, t: 40, b: 40 }
+    });
+
+    function updateTemperatureChart(timestamp, predictedValue, targetValue){
+      predictedTrace.x.push(timestamp);
+      predictedTrace.y.push(predictedValue);
+
+      if (targetValue !== null && targetValue !== undefined && !isNaN(targetValue)){
+        targetTrace.x.push(timestamp);
+        targetTrace.y.push(targetValue);
+      }
+
+      Plotly.update('temperatureChart', {
+        x:[predictedTrace.x, targetTrace.x],
+        y:[predictedTrace.y, targetTrace.y]
+      }, {}, [0,1]);
+    }
+
+    function updateBarChart(){
+      okCount = document.querySelectorAll('tr.ok').length;
+      nonOkCount = document.querySelectorAll('tr.non-ok').length;
+      Plotly.update('barChart', { y:[[okCount, nonOkCount]] });
+    }
+
+    // ---------------------------
+    // Buttons
+    // ---------------------------
+    document.getElementById('loadConfigButton').addEventListener('click', loadConfig);
+    document.getElementById('connectButton').addEventListener('click', connectToBroker);
+    document.getElementById('disconnectButton').addEventListener('click', disconnectFromBroker);
+    document.getElementById('loadCsvButton').addEventListener('click', loadCsvData);
+    document.getElementById('exportNonOkButton').addEventListener('click', exportNonOkRows);
+    document.getElementById('recalibrateButton').addEventListener('click', recalibrateModel);
+    document.getElementById('genAIButton').addEventListener('click', applyGenAI);
+
+    function recalibrateModel(){
+      const eligible = Array.from(document.querySelectorAll('tr.non-ok'))
+        .filter(row => row.dataset.podValid === 'true');
+
+      if (eligible.length === 0){
+        alert('Recalibration blocked: no PoD-valid Non-OK labels available.');
+        return;
+      }
+      alert(`Recalibrating with ${eligible.length} PoD-valid Non-OK labels...`);
+    }
+
+    // ---------------------------
+    // GenAI (kept, only column index is 7 for reasons)
+    // ---------------------------
+    async function applyGenAI(){
+      const rows = document.querySelectorAll('#logTable tr[data-auto-filled="true"]');
+      for (let row of rows){
+        if (row.getAttribute('data-user-modified') === 'true') continue;
+
+        const targetInput = row.querySelector('td:nth-child(3) input');
+        const predictedCell = row.querySelector('td:nth-child(4)');
+        const reasonsCell = row.querySelector('td:nth-child(7) input');
+        if (!targetInput || !predictedCell || !reasonsCell) continue;
+
+        const target = parseFloat(targetInput.value);
+        const predicted = parseFloat(predictedCell.textContent);
+        if (isNaN(target) || isNaN(predicted)) continue;
+
+        const featureSelect = row.querySelector('td:nth-child(2) select');
+        let features = [];
+        if (featureSelect) features = Array.from(featureSelect.options).map(opt => opt.textContent);
+
+        const chatMessage = `Analyze the following data:
+- Features: ${features.join(", ")}
+- Target: ${target}
+- Predicted: ${predicted}
+- Difference: ${Math.abs(target - predicted)}`;
+
+        try{
+          const aiResponse = await sendMessageToChatabase(chatMessage);
+          if (aiResponse && aiResponse.response){
+            reasonsCell.value = aiResponse.response;
+            row.setAttribute('data-user-modified','true');
+          } else {
+            reasonsCell.value = "No response from AI.";
+          }
+        } catch (e){
+          reasonsCell.value = "Error fetching AI response.";
+        }
+
+        setRowStatus(row, Math.abs(predicted-target) < 10 ? 'ok' : 'non-ok');
+      }
+      updateBarChart();
+    }
+
+    async function sendMessageToChatabase(message){
+      const apiKey = 'd1a408c0-5e75-40ca-99e5-424e830d26ed';
+      const chatbotId = 'MY7q1PRbIMOwFyc7pYCch';
+      const apiUrl = `https://www.chatbase.co/api/v1/chat`;
+
+      try{
+        const response = await fetch(apiUrl, {
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            messages: [{ content: message, role: "user" }],
+            chatbotId,
+            stream:false
+          })
+        });
+
+        if (!response.ok){
+          const err = await response.json();
+          throw new Error(`${response.status} ${err.message || response.statusText}`);
+        }
+
+        const data = await response.json();
+        if (data && data.text) return { response: summarizeChatResponse(data.text) };
+        return { response: "Invalid response format from Chatbase." };
+      } catch (e){
+        return { response: "Error fetching AI response." };
+      }
+    }
+
+    function summarizeChatResponse(fullText){
+      if (!fullText || fullText.trim().length === 0) return "No clear analysis found.";
+      return fullText.trim().slice(0, 200);
+    }
+
+    // ---------------------------
+    // Config + MQTT
+    // ---------------------------
+    function validateConfig(cfg){
+      return cfg.brokerURL && cfg.inputTopic && cfg.outputTopic && cfg.inputs;
+    }
+
+    function loadConfig(){
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = '.json';
+      fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        reader.onload = event => {
+          try{
+            config = JSON.parse(event.target.result);
+            if (!validateConfig(config)){
+              alert('Invalid config. Required: brokerURL, inputTopic, outputTopic, inputs.');
+              return;
+            }
+            connectBtn.disabled = false;
+            connectBtn.click();
+          } catch (e){
+            alert('Failed to load config: ' + e.message);
+          }
+        };
+        reader.readAsText(file);
+      });
+      fileInput.click();
+    }
+
+    function connectToBroker(){
+      if (!validateConfig(config)){
+        alert('Load a valid config JSON first.');
+        return;
+      }
+
+      client = mqtt.connect(config.brokerURL);
+
+      client.on('connect', () => {
+        isConnected = true;
+        setConnection(true, 'Connected');
+        connectBtn.disabled = true;
+        disconnectBtn.disabled = false;
+
+        const dynamicTopic = config.inputTopic + '-';
+        client.subscribe([config.outputTopic, dynamicTopic, config.inputTopic]);
+      });
+
+      client.on('error', err => {
+        setConnection(false, 'Connection error');
+        console.error(err);
+      });
+
+      client.on('reconnect', () => setConnection(false, 'Reconnecting'));
+      client.on('close', () => {
+        isConnected = false;
+        setConnection(false, 'Disconnected');
+        connectBtn.disabled = false;
+        disconnectBtn.disabled = true;
+      });
+
+      client.on('offline', () => setConnection(false, 'Offline'));
+      client.on('message', onMessage);
+    }
+
+    function disconnectFromBroker(){
+      if (!client) return;
+      client.end();
+      isConnected = false;
+      setConnection(false, 'Disconnected');
+      connectBtn.disabled = false;
+      disconnectBtn.disabled = true;
+    }
+
+    function onMessage(topic, message){
+      const data = JSON.parse(message.toString());
+      const dynamicTopic = config.inputTopic + '-';
+
+      if (topic === dynamicTopic){
+        processDynamicData(data);
+      } else if (topic === config.outputTopic && data.median !== undefined){
+        processReceivedData(data.median);
+      } else if (topic === config.inputTopic){
+        addRowToTable(data);
+      }
+    }
+
+    function processDynamicData(data){
+      const rowData = {
+        Timestamp: new Date().toLocaleString(),
+        Target: '0',
+        Features: {},
+        Predicted: '-'
+      };
+
+      Object.keys(data).forEach(key => { rowData.Features[key] = data[key]; });
+      addRowToTable(rowData);
+
+      const csvFormattedData = [
+        new Date().toLocaleString(),
+        config.inputTopic + '-',
+        ...Object.values(data),
+        '0',
+        '-'
+      ];
+      csvLines.push(csvFormattedData);
+
+      if (isConnected) publishNextRow(true);
+    }
+
+    function processReceivedData(medianValue){
+      const row = publishedRows.shift();
+      if (!row) return;
+
+      const predCell = row.querySelector('td:nth-child(4)');
+      predCell.textContent = medianValue;
+
+      const timestamp = row.querySelector('td:first-child').textContent;
+      const targetInput = row.querySelector('td:nth-child(3) input');
+
+      let targetValue = null;
+      if (targetInput){
+        const parsed = parseFloat(targetInput.value);
+        targetValue = isNaN(parsed) ? null : parsed;
+      }
+
+      updateTemperatureChart(timestamp, medianValue, targetValue);
+      if (isConnected) publishNextRow();
+    }
+
+    // ---------------------------
+    // CSV + publishing
+    // ---------------------------
+    function loadCsvData(){
+      const fileInput = document.getElementById('csvFileInput');
+      if (!fileInput || fileInput.files.length === 0){
+        alert('Please select a CSV file.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = event => {
+        csvLines = event.target.result
+          .split('\n')
+          .slice(1)
+          .map(line => line.split(',').map(v => v.trim()))
+          .filter(cols => cols.length > 2);
+
+        if (isConnected) publishNextRow();
+      };
+      reader.readAsText(fileInput.files[0]);
+    }
+
+    function publishNextRow(skipTableCreation = false){
+      if (!client || csvLines.length === 0) return;
+
+      const row = csvLines.shift();
+      const afterSkip = row.slice(2);
+      const featureValues = afterSkip.slice(0, config.inputs.length);
+      const target = afterSkip[afterSkip.length - 1];
+
+      const dataObj = {};
+      config.inputs.forEach((input, i) => { dataObj[input.name] = featureValues[i]; });
+      const dataStr = JSON.stringify(dataObj);
+
+      client.publish(config.inputTopic, dataStr, err => {
+        if (err) return console.error('Publish error:', err);
+
+        if (!skipTableCreation){
+          addRowToTable({
+            Timestamp: new Date().toLocaleString(),
+            Target: target,
+            Features: dataObj,
+            Predicted: '-'
+          });
+        }
+      });
+    }
+
+    // ---------------------------
+    // Table handling
+    // ---------------------------
+    function addRowToTable(data){
+      if (!data || !data.Timestamp || !data.Features) return;
+
+      const row = document.createElement('tr');
+      row.setAttribute('data-auto-filled', 'true');
+      row.dataset.rowId = `row-${rowCounter++}`;
+      row.dataset.initialTarget = String(data.Target || '0');
+      row.dataset.podValid = 'false';
+      row.dataset.firstInteractionMs = '';
+      row.dataset.featuresOpened = 'false';
+
+      // Start timer when row becomes active
+      row.addEventListener('pointerdown', () => {
+        ensureAnchoredStart(row);
+        startTimerForRow(row);
+      }, { passive:true });
+
+      row.addEventListener('focusin', () => {
+        ensureAnchoredStart(row);
+        startTimerForRow(row);
+      }, { passive:true });
+
+      row.appendChild(createCell(data.Timestamp));
+      row.appendChild(createFeaturesCell(data.Features, row));
+      row.appendChild(createCell(data.Target || '0', true, row.dataset.rowId));
+      row.appendChild(createCell(data.Predicted || '-'));
+      row.appendChild(createStatusCell(row.dataset.rowId));
+      row.appendChild(createPoDCell());
+      row.appendChild(createReasonsCell());
+
+      logTable.appendChild(row);
+      publishedRows.push(row);
+
+      setPodBadge(row, 'pending', 'Start interaction, inspect features, wait for Ready');
+      updateBarChart();
+    }
+
+    function createPoDCell(){
+      const cell = document.createElement('td');
+      cell.setAttribute('data-pod-cell','true');
+      const badge = document.createElement('span');
+      badge.className = 'pod-badge pod-pending';
+      badge.textContent = 'PoD …';
+      badge.title = 'Waiting for status selection';
+      cell.appendChild(badge);
+      return cell;
+    }
+
+    function createCell(content, isEditable = false, rowId = ''){
+      const cell = document.createElement('td');
+      if (isEditable){
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = content;
+        input.classList.add('target-input');
+
+        input.addEventListener('focus', e => {
+          const r = e.target.closest('tr');
+          if (r){
+            ensureAnchoredStart(r);
+            startTimerForRow(r);
+          }
+        });
+
+        input.addEventListener('change', () => {
+          if (rowId){
+            const r = document.querySelector(`[data-row-id="${rowId}"]`);
+            if (r) r.setAttribute('data-user-modified','true');
+          }
+        });
+
+        cell.appendChild(input);
+      } else {
+        cell.textContent = content;
+      }
+      return cell;
+    }
+
+    function createFeaturesCell(features, row){
+      const cell = document.createElement('td');
+      const select = document.createElement('select');
+
+      Object.entries(features).forEach(([key,value]) => {
+        const option = document.createElement('option');
+        option.textContent = `${key}: ${value}`;
+        select.appendChild(option);
+      });
+
+      // Inspection signal
+      select.addEventListener('mousedown', () => {
+        row.dataset.featuresOpened = 'true';
+        ensureAnchoredStart(row);
+        startTimerForRow(row);
+      });
+
+      select.addEventListener('focus', () => {
+        row.dataset.featuresOpened = 'true';
+        ensureAnchoredStart(row);
+        startTimerForRow(row);
+      });
+
+      cell.appendChild(select);
+      return cell;
+    }
+
+    function createStatusCell(rowId){
+      const cell = document.createElement('td');
+      const wrap = document.createElement('div');
+      wrap.className = 'status-cell';
+
+      function makeChip(label, value){
+        const chip = document.createElement('label');
+        chip.className = 'status-chip';
+
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = `status-${rowId}`;
+        radio.value = value;
+
+        chip.appendChild(radio);
+        chip.appendChild(document.createTextNode(label));
+
+        radio.addEventListener('change', () => {
+          const row = document.querySelector(`[data-row-id="${rowId}"]`);
+          if (!row) return;
+
+          ensureAnchoredStart(row);
+
+          setRowStatusById(rowId, value);
+          row.setAttribute('data-user-modified','true');
+
+          // if Non-OK, encourage short reasons
+          const reasonsInput = row.querySelector('td:nth-child(7) input');
+          if (value === 'non-ok' && reasonsInput && reasonsInput.value.trim().length < 3) {
+            reasonsInput.focus();
+          }
+
+          const verdict = verifyPoDForRow(row);
+
+          if (verdict.ok){
+            row.dataset.podValid = 'true';
+            setPodBadge(row, 'ok', verdict.why);
+            markRejected(row, false);
+          } else {
+            row.dataset.podValid = 'false';
+            setPodBadge(row, 'fail', verdict.why);
+            markRejected(row, true, verdict.why);
+          }
+
+          updateBarChart();
+        });
+
+        return chip;
+      }
+
+      wrap.appendChild(makeChip('OK', 'ok'));
+      wrap.appendChild(makeChip('Non-OK', 'non-ok'));
+      cell.appendChild(wrap);
+      return cell;
+    }
+
+    function createReasonsCell(){
+      const cell = document.createElement('td');
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.classList.add('reasons-input');
+
+      input.addEventListener('focus', e => {
+        const row = e.target.closest('tr');
+        if (row){
+          ensureAnchoredStart(row);
+          startTimerForRow(row);
+        }
+      });
+
+      input.addEventListener('change', e => {
+        const row = e.target.closest('tr');
+        if (row) row.setAttribute('data-user-modified','true');
+      });
+
+      cell.appendChild(input);
+      return cell;
+    }
+
+    function setRowStatus(row, status){
+      if (!row) return;
+      row.classList.remove('ok','non-ok');
+      row.classList.add(status);
+    }
+
+    function setRowStatusById(rowId, status){
+      const row = document.querySelector(`[data-row-id="${rowId}"]`);
+      if (!row) return;
+      setRowStatus(row, status);
+    }
+
+    function exportNonOkRows(){
+      const nonOkRows = Array.from(document.querySelectorAll('tr.non-ok'))
+        .filter(row => row.dataset.podValid === 'true')
+        .map(row => {
+          const cells = row.querySelectorAll('td');
+          const features = Array.from(cells[1].querySelector('select').options).map(o => o.textContent);
+          const targetVal = cells[2].querySelector('input') ? cells[2].querySelector('input').value : '0';
+          return {
+            Timestamp: cells[0].textContent,
+            Features: features,
+            Target: targetVal,
+            PoD: { valid: true, why: row.dataset.podWhy || '' }
+          };
+        });
+
+      const blob = new Blob([JSON.stringify(nonOkRows, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'non-ok-rows.json';
+      a.click();
+    }
+
+    // Initialize UI state
+    setConnection(false, 'Not connected');
+    setStreamMode('Warmup', 'Collecting samples');
+    setPodTimerUI('warn', 0, 'Select a row to start');
+
+    // ---------------------------
+    // Bar chart updater
+    // ---------------------------
+    function updateBarChart(){
+      okCount = document.querySelectorAll('tr.ok').length;
+      nonOkCount = document.querySelectorAll('tr.non-ok').length;
+      Plotly.update('barChart', { y:[[okCount, nonOkCount]] });
+    }
+  </script>
+</body>
+</html>
+
+
