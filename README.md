@@ -324,15 +324,6 @@ If you use this software, please cite both the paper and the software
 artefact:
 
 ```bibtex
-@article{MartinezGil2026PoD,
-    author    = {Jorge Martinez-Gil},
-    title     = {Proof-of-Deliberation for Certifying Human Supervision
-                 Reliability in Streaming Data Quality},
-    journal   = {IEEE Transactions on Knowledge and Data Engineering},
-    year      = {2026},
-    publisher = {IEEE}
-}
-
 @software{MartinezGil2026PoDSoftware,
     author  = {Jorge Martinez-Gil},
     title   = {Proof-of-Deliberation (PoD): reference implementation},
