@@ -2,8 +2,8 @@
 
 > Reference implementation for
 > **J. Martinez-Gil. _Proof-of-Deliberation for Certifying Human
-> Supervision Reliability in Streaming Data Quality_. IEEE
-> Transactions on Knowledge and Data Engineering, 2026.**
+> Supervision Reliability in Streaming Data Quality_. Under review in IEEE
+> Transactions on Knowledge and Data Engineering.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
