@@ -1,0 +1,48 @@
+{
+  "_comment": "Frozen Electricity (elec2) configuration (matches src/pod/presets.py:cfg_elec2). OpenML data_id=44156.",
+  "dataset": "elec2",
+  "runs": 20,
+  "init_fit": 250,
+  "schedule": {
+    "baseline": 2000,
+    "gaming": 2000,
+    "fatigue": 2000
+  },
+  "AL": {
+    "query_budget": 0.85,
+    "query_temp": 1.00
+  },
+  "PoD": {
+    "coupling_window": 80,
+    "coupling_epsilon": -1.0,
+    "gate_a": 650.0,
+    "gate_b": 220.0,
+    "gate_lo_frac": 0.90,
+    "gate_hi_frac": 1.10,
+    "gate_floor_ms": 120.0,
+    "gate_ceil_ms": 3200.0,
+    "gaming_window": 6,
+    "gaming_mu_max_ms": 900.0,
+    "gaming_cv_max": 0.025,
+    "fatigue_window": 20,
+    "fatigue_cv_min": 0.40,
+    "persist_k": 2
+  },
+  "Operator": {
+    "k": 650.0,
+    "c": 270.0,
+    "sigma": 88.0,
+    "c_fast": 600.0,
+    "eps_fast": 3.0,
+    "c_slow": 1100.0,
+    "sigma_high": 900.0,
+    "p_correct_baseline": 0.985,
+    "p_correct_gaming": 0.01,
+    "p_correct_fatigue": 0.15
+  },
+  "clf": {
+    "alpha": 2e-05,
+    "eta0": 0.01,
+    "average": true
+  }
+}

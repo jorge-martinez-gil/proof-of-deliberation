@@ -1,0 +1,8 @@
+# Additional dependencies needed only by `pod-validate`
+# (the Hick-Hyman validation on ATC corpora). Install on top of
+# requirements.txt:
+#
+#   pip install -r requirements.txt
+#   pip install -r requirements-validation.txt
+datasets>=2.14,<3.0
+statsmodels>=0.14,<1.0

@@ -1,0 +1,3037 @@
+{
+  "schema_version": 1,
+  "dataset": "elec2",
+  "openml_id": 44156,
+  "n_items": 120,
+  "n_per_bin": 40,
+  "n_bins": 3,
+  "complexity_bin_names": [
+    "low",
+    "mid",
+    "high"
+  ],
+  "visible_columns": [
+    "day",
+    "period",
+    "nswprice",
+    "nswdemand",
+    "vicprice",
+    "vicdemand",
+    "transfer"
+  ],
+  "feature_labels": {
+    "day": "Day of week (1-7)",
+    "period": "Half-hour period (1-48)",
+    "nswprice": "NSW electricity price (norm.)",
+    "nswdemand": "NSW demand (norm.)",
+    "vicprice": "Victoria price (norm.)",
+    "vicdemand": "Victoria demand (norm.)",
+    "transfer": "Inter-state transfer (norm.)"
+  },
+  "label_space": {
+    "0": "DOWN",
+    "1": "UP"
+  },
+  "items": [
+    {
+      "item_id": 4828,
+      "trial_order": 0,
+      "features": {
+        "day": 2.0,
+        "period": 0.510638,
+        "nswprice": 0.029152,
+        "nswdemand": 0.543439,
+        "vicprice": 0.002036,
+        "vicdemand": 0.570171,
+        "transfer": 0.298246
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.586136440636637,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 8540,
+      "trial_order": 1,
+      "features": {
+        "day": 6.0,
+        "period": 0.425532,
+        "nswprice": 0.044794,
+        "nswdemand": 0.470098,
+        "vicprice": 0.003039,
+        "vicdemand": 0.354738,
+        "transfer": 0.491667
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9727371546622613,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 5210,
+      "trial_order": 2,
+      "features": {
+        "day": 3.0,
+        "period": 0.148936,
+        "nswprice": 0.042843,
+        "nswdemand": 0.133889,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9996558202489411,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 12458,
+      "trial_order": 3,
+      "features": {
+        "day": 0.0,
+        "period": 0.191489,
+        "nswprice": 0.024168,
+        "nswdemand": 0.066647,
+        "vicprice": 0.001618,
+        "vicdemand": 0.051528,
+        "transfer": 0.727632
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.844260515169518,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 30205,
+      "trial_order": 4,
+      "features": {
+        "day": 2.0,
+        "period": 0.978723,
+        "nswprice": 0.083463,
+        "nswdemand": 0.472925,
+        "vicprice": 0.005654,
+        "vicdemand": 0.454169,
+        "transfer": 0.384211
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9477470829900485,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 4240,
+      "trial_order": 5,
+      "features": {
+        "day": 6.0,
+        "period": 0.531915,
+        "nswprice": 0.041732,
+        "nswdemand": 0.421154,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.4800385860739051,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 16135,
+      "trial_order": 6,
+      "features": {
+        "day": 5.0,
+        "period": 0.361702,
+        "nswprice": 0.049388,
+        "nswdemand": 0.683725,
+        "vicprice": 0.003616,
+        "vicdemand": 0.61885,
+        "transfer": 0.232895
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.766945237171846,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 8652,
+      "trial_order": 7,
+      "features": {
+        "day": 6.0,
+        "period": 0.255319,
+        "nswprice": 0.027381,
+        "nswdemand": 0.177626,
+        "vicprice": 0.001843,
+        "vicdemand": 0.143708,
+        "transfer": 0.577193
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.5588691805088578,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 2291,
+      "trial_order": 8,
+      "features": {
+        "day": 3.0,
+        "period": 0.148936,
+        "nswprice": 0.057614,
+        "nswdemand": 0.158286,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.985294828790324,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 915,
+      "trial_order": 9,
+      "features": {
+        "day": 5.0,
+        "period": 0.489362,
+        "nswprice": 0.077369,
+        "nswdemand": 0.43127,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.4409799728612951,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 2449,
+      "trial_order": 10,
+      "features": {
+        "day": 3.0,
+        "period": 0.425532,
+        "nswprice": 0.03975,
+        "nswdemand": 0.578846,
+        "vicprice": 0.002748,
+        "vicdemand": 0.551269,
+        "transfer": 0.258772
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.10219116518468896,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 4607,
+      "trial_order": 11,
+      "features": {
+        "day": 1.0,
+        "period": 0.468085,
+        "nswprice": 0.032695,
+        "nswdemand": 0.58197,
+        "vicprice": 0.002216,
+        "vicdemand": 0.547903,
+        "transfer": 0.445175
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.7015404524347637,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 9309,
+      "trial_order": 12,
+      "features": {
+        "day": 6.0,
+        "period": 0.021277,
+        "nswprice": 0.044434,
+        "nswdemand": 0.456709,
+        "vicprice": 0.002993,
+        "vicdemand": 0.392025,
+        "transfer": 0.585526
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.7645686021260455,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 32392,
+      "trial_order": 13,
+      "features": {
+        "day": 4.0,
+        "period": 0.404255,
+        "nswprice": 0.031494,
+        "nswdemand": 0.588367,
+        "vicprice": 0.002075,
+        "vicdemand": 0.778612,
+        "transfer": 0.370614
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.6488126385104916,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 1983,
+      "trial_order": 14,
+      "features": {
+        "day": 2.0,
+        "period": 0.680851,
+        "nswprice": 0.087306,
+        "nswdemand": 0.494644,
+        "vicprice": 0.005847,
+        "vicdemand": 0.529259,
+        "transfer": 0.480702
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.49781281286067375,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 22501,
+      "trial_order": 15,
+      "features": {
+        "day": 3.0,
+        "period": 0.255319,
+        "nswprice": 0.058394,
+        "nswdemand": 0.258405,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.742637392779317,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 30731,
+      "trial_order": 16,
+      "features": {
+        "day": 6.0,
+        "period": 0.744681,
+        "nswprice": 0.033145,
+        "nswdemand": 0.417882,
+        "vicprice": 0.002302,
+        "vicdemand": 0.269032,
+        "transfer": 0.323684
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.7898296389132422,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 11185,
+      "trial_order": 17,
+      "features": {
+        "day": 5.0,
+        "period": 0.255319,
+        "nswprice": 0.068242,
+        "nswdemand": 0.185957,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9609958128806959,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 23750,
+      "trial_order": 18,
+      "features": {
+        "day": 5.0,
+        "period": 0.851064,
+        "nswprice": 0.086316,
+        "nswdemand": 0.36626,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9826662102957693,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 11883,
+      "trial_order": 19,
+      "features": {
+        "day": 5.0,
+        "period": 0.808511,
+        "nswprice": 0.05245,
+        "nswdemand": 0.556084,
+        "vicprice": 0.003492,
+        "vicdemand": 0.548679,
+        "transfer": 0.526754
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.8534402480236395,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 18679,
+      "trial_order": 20,
+      "features": {
+        "day": 5.0,
+        "period": 0.468085,
+        "nswprice": 0.046926,
+        "nswdemand": 0.635525,
+        "vicprice": 0.00312,
+        "vicdemand": 0.603055,
+        "transfer": 0.416228
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8678893936348983,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 18994,
+      "trial_order": 21,
+      "features": {
+        "day": 2.0,
+        "period": 0.765957,
+        "nswprice": 0.127447,
+        "nswdemand": 0.579441,
+        "vicprice": 0.011496,
+        "vicdemand": 0.634386,
+        "transfer": 0.500526
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.785702489384727,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 27843,
+      "trial_order": 22,
+      "features": {
+        "day": 6.0,
+        "period": 0.148936,
+        "nswprice": 0.029182,
+        "nswdemand": 0.19875,
+        "vicprice": 0.001892,
+        "vicdemand": 0.319006,
+        "transfer": 0.660965
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.8531145845966545,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 19761,
+      "trial_order": 23,
+      "features": {
+        "day": 3.0,
+        "period": 0.808511,
+        "nswprice": 0.106221,
+        "nswdemand": 0.485867,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.5124485754642742,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 14110,
+      "trial_order": 24,
+      "features": {
+        "day": 1.0,
+        "period": 0.638298,
+        "nswprice": 0.121202,
+        "nswdemand": 0.550134,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.050317612906927774,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 13655,
+      "trial_order": 25,
+      "features": {
+        "day": 1.0,
+        "period": 0.702128,
+        "nswprice": 0.074817,
+        "nswdemand": 0.569622,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9792434640352449,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 19662,
+      "trial_order": 26,
+      "features": {
+        "day": 1.0,
+        "period": 0.446809,
+        "nswprice": 0.073136,
+        "nswdemand": 0.557721,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9997553705777189,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 11197,
+      "trial_order": 27,
+      "features": {
+        "day": 3.0,
+        "period": 0.276596,
+        "nswprice": 0.069473,
+        "nswdemand": 0.470247,
+        "vicprice": 0.004634,
+        "vicdemand": 0.632833,
+        "transfer": 0.452193
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.766945237171846,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 8093,
+      "trial_order": 28,
+      "features": {
+        "day": 3.0,
+        "period": 0.510638,
+        "nswprice": 0.029302,
+        "nswdemand": 0.516959,
+        "vicprice": 0.002013,
+        "vicdemand": 0.520456,
+        "transfer": 0.312719
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8666993864827097,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 2878,
+      "trial_order": 29,
+      "features": {
+        "day": 1.0,
+        "period": 0.595745,
+        "nswprice": 0.035247,
+        "nswdemand": 0.630616,
+        "vicprice": 0.002351,
+        "vicdemand": 0.796737,
+        "transfer": 0.148684
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.6560717488224731,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 11877,
+      "trial_order": 30,
+      "features": {
+        "day": 6.0,
+        "period": 0.893617,
+        "nswprice": 0.070404,
+        "nswdemand": 0.29158,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9985113112139803,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 1774,
+      "trial_order": 31,
+      "features": {
+        "day": 6.0,
+        "period": 0.12766,
+        "nswprice": 0.049658,
+        "nswdemand": 0.271645,
+        "vicprice": 0.002902,
+        "vicdemand": 0.378042,
+        "transfer": 0.78114
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.23775208560134597,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 24850,
+      "trial_order": 32,
+      "features": {
+        "day": 3.0,
+        "period": 0.191489,
+        "nswprice": 0.02675,
+        "nswdemand": 0.159328,
+        "vicprice": 0.001828,
+        "vicdemand": 0.19653,
+        "transfer": 0.446053
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.7975109109326909,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 17959,
+      "trial_order": 33,
+      "features": {
+        "day": 0.0,
+        "period": 0.319149,
+        "nswprice": 0.044254,
+        "nswdemand": 0.29277,
+        "vicprice": 0.002869,
+        "vicdemand": 0.221647,
+        "transfer": 0.778509
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.8117257083544273,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 4038,
+      "trial_order": 34,
+      "features": {
+        "day": 6.0,
+        "period": 1.0,
+        "nswprice": 0.02678,
+        "nswdemand": 0.29039,
+        "vicprice": 0.001801,
+        "vicdemand": 0.344899,
+        "transfer": 0.585088
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.49781281286067375,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 21645,
+      "trial_order": 35,
+      "features": {
+        "day": 1.0,
+        "period": 0.148936,
+        "nswprice": 0.045755,
+        "nswdemand": 0.27715,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.7015404524347637,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 8008,
+      "trial_order": 36,
+      "features": {
+        "day": 5.0,
+        "period": 0.87234,
+        "nswprice": 0.048337,
+        "nswdemand": 0.301845,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.742637392779317,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 26821,
+      "trial_order": 37,
+      "features": {
+        "day": 2.0,
+        "period": 0.042553,
+        "nswprice": 0.044043,
+        "nswdemand": 0.448081,
+        "vicprice": 0.003027,
+        "vicdemand": 0.447178,
+        "transfer": 0.310965
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.4786198782552678,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 31829,
+      "trial_order": 38,
+      "features": {
+        "day": 1.0,
+        "period": 0.574468,
+        "nswprice": 0.041492,
+        "nswdemand": 0.528563,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8196037107303207,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 28031,
+      "trial_order": 39,
+      "features": {
+        "day": 5.0,
+        "period": 0.765957,
+        "nswprice": 0.03972,
+        "nswdemand": 0.662749,
+        "vicprice": 0.002796,
+        "vicdemand": 0.717763,
+        "transfer": 0.17807
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.785702489384727,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 13771,
+      "trial_order": 40,
+      "features": {
+        "day": 1.0,
+        "period": 0.06383,
+        "nswprice": 0.043623,
+        "nswdemand": 0.300208,
+        "vicprice": 0.002422,
+        "vicdemand": 0.389953,
+        "transfer": 0.629825
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9026872982274134,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 9361,
+      "trial_order": 41,
+      "features": {
+        "day": 0.0,
+        "period": 0.404255,
+        "nswprice": 0.042572,
+        "nswdemand": 0.632996,
+        "vicprice": 0.002848,
+        "vicdemand": 0.267219,
+        "transfer": 0.755263
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.10219116518468896,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 5755,
+      "trial_order": 42,
+      "features": {
+        "day": 1.0,
+        "period": 0.765957,
+        "nswprice": 0.121202,
+        "nswdemand": 0.819101,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.09597040299587187,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 7153,
+      "trial_order": 43,
+      "features": {
+        "day": 2.0,
+        "period": 0.702128,
+        "nswprice": 0.088567,
+        "nswdemand": 0.530497,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.7168420074878789,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 33159,
+      "trial_order": 44,
+      "features": {
+        "day": 6.0,
+        "period": 0.404255,
+        "nswprice": 0.603128,
+        "nswdemand": 0.698007,
+        "vicprice": 0.001786,
+        "vicdemand": 0.501036,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.6935147240636743,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 3190,
+      "trial_order": 45,
+      "features": {
+        "day": 5.0,
+        "period": 0.914894,
+        "nswprice": 0.047676,
+        "nswdemand": 0.3554,
+        "vicprice": 0.003205,
+        "vicdemand": 0.269291,
+        "transfer": 0.539035
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8445526552443212,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 11175,
+      "trial_order": 46,
+      "features": {
+        "day": 5.0,
+        "period": 0.212766,
+        "nswprice": 0.02666,
+        "nswdemand": 0.159625,
+        "vicprice": 0.001784,
+        "vicdemand": 0.188762,
+        "transfer": 0.600439
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.10219116518468896,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 27161,
+      "trial_order": 47,
+      "features": {
+        "day": 4.0,
+        "period": 0.234043,
+        "nswprice": 0.027801,
+        "nswdemand": 0.213478,
+        "vicprice": 0.001481,
+        "vicdemand": 0.276282,
+        "transfer": 0.835088
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.93665563228415,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 17489,
+      "trial_order": 48,
+      "features": {
+        "day": 6.0,
+        "period": 0.93617,
+        "nswprice": 0.078179,
+        "nswdemand": 0.298572,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.12748017984556087,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 3802,
+      "trial_order": 49,
+      "features": {
+        "day": 2.0,
+        "period": 0.276596,
+        "nswprice": 0.033055,
+        "nswdemand": 0.551473,
+        "vicprice": 0.0022,
+        "vicdemand": 0.406525,
+        "transfer": 0.561404
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.7168420074878789,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 28238,
+      "trial_order": 50,
+      "features": {
+        "day": 1.0,
+        "period": 0.06383,
+        "nswprice": 0.055242,
+        "nswdemand": 0.195626,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.49781281286067375,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 6250,
+      "trial_order": 51,
+      "features": {
+        "day": 4.0,
+        "period": 0.851064,
+        "nswprice": 0.074817,
+        "nswdemand": 0.311514,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9792434640352449,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 14879,
+      "trial_order": 52,
+      "features": {
+        "day": 3.0,
+        "period": 0.234043,
+        "nswprice": 0.042602,
+        "nswdemand": 0.261083,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9527255608679082,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 21174,
+      "trial_order": 53,
+      "features": {
+        "day": 1.0,
+        "period": 0.510638,
+        "nswprice": 0.082833,
+        "nswdemand": 0.453883,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.7355875113151891,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 5322,
+      "trial_order": 54,
+      "features": {
+        "day": 4.0,
+        "period": 0.787234,
+        "nswprice": 0.089258,
+        "nswdemand": 0.608152,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.050317612906927774,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 24771,
+      "trial_order": 55,
+      "features": {
+        "day": 0.0,
+        "period": 0.212766,
+        "nswprice": 0.024499,
+        "nswdemand": 0.152336,
+        "vicprice": 0.001602,
+        "vicdemand": 0.229156,
+        "transfer": 0.748246
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.16468241895832453,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 13435,
+      "trial_order": 56,
+      "features": {
+        "day": 2.0,
+        "period": 0.531915,
+        "nswprice": 0.083794,
+        "nswdemand": 0.537786,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.4881805513906067,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 10556,
+      "trial_order": 57,
+      "features": {
+        "day": 1.0,
+        "period": 0.446809,
+        "nswprice": 0.040711,
+        "nswdemand": 0.70247,
+        "vicprice": 0.002744,
+        "vicdemand": 0.788711,
+        "transfer": 0.380263
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.8652363893558085,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 12726,
+      "trial_order": 58,
+      "features": {
+        "day": 2.0,
+        "period": 0.446809,
+        "nswprice": 0.134802,
+        "nswdemand": 0.570515,
+        "vicprice": 0.009046,
+        "vicdemand": 0.489902,
+        "transfer": 0.554386
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9387487605673825,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 28878,
+      "trial_order": 59,
+      "features": {
+        "day": 2.0,
+        "period": 0.553191,
+        "nswprice": 0.029272,
+        "nswdemand": 0.531836,
+        "vicprice": 0.001973,
+        "vicdemand": 0.55101,
+        "transfer": 0.463596
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.23775208560134597,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 19207,
+      "trial_order": 60,
+      "features": {
+        "day": 4.0,
+        "period": 0.404255,
+        "nswprice": 0.06608,
+        "nswdemand": 0.543439,
+        "vicprice": 0.004479,
+        "vicdemand": 0.562144,
+        "transfer": 0.425
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9998635581266573,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 3389,
+      "trial_order": 61,
+      "features": {
+        "day": 5.0,
+        "period": 0.680851,
+        "nswprice": 0.034826,
+        "nswdemand": 0.57706,
+        "vicprice": 0.002491,
+        "vicdemand": 0.467374,
+        "transfer": 0.183333
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.7168420074878789,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 26274,
+      "trial_order": 62,
+      "features": {
+        "day": 5.0,
+        "period": 0.808511,
+        "nswprice": 0.081122,
+        "nswdemand": 0.39274,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.972389757645877,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 24185,
+      "trial_order": 63,
+      "features": {
+        "day": 6.0,
+        "period": 0.106383,
+        "nswprice": 0.055242,
+        "nswdemand": 0.091044,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.3509021081431812,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 5670,
+      "trial_order": 64,
+      "features": {
+        "day": 0.0,
+        "period": 0.723404,
+        "nswprice": 0.098985,
+        "nswdemand": 0.591937,
+        "vicprice": 0.00657,
+        "vicdemand": 0.46349,
+        "transfer": 0.581579
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9792434640352449,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 18411,
+      "trial_order": 65,
+      "features": {
+        "day": 1.0,
+        "period": 0.021277,
+        "nswprice": 0.099616,
+        "nswdemand": 0.536447,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.928551672216054,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 15492,
+      "trial_order": 66,
+      "features": {
+        "day": 6.0,
+        "period": 0.170213,
+        "nswprice": 0.033626,
+        "nswdemand": 0.24457,
+        "vicprice": 0.002262,
+        "vicdemand": 0.26463,
+        "transfer": 0.69693
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.8741340899786936,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 31870,
+      "trial_order": 67,
+      "features": {
+        "day": 3.0,
+        "period": 0.446809,
+        "nswprice": 0.028612,
+        "nswdemand": 0.533026,
+        "vicprice": 0.001847,
+        "vicdemand": 0.58001,
+        "transfer": 0.633772
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.09597040299587187,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 14876,
+      "trial_order": 68,
+      "features": {
+        "day": 5.0,
+        "period": 0.531915,
+        "nswprice": 0.028612,
+        "nswdemand": 0.493454,
+        "vicprice": 0.002005,
+        "vicdemand": 0.559296,
+        "transfer": 0.283333
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9781248241647773,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 28305,
+      "trial_order": 69,
+      "features": {
+        "day": 0.0,
+        "period": 0.808511,
+        "nswprice": 0.030233,
+        "nswdemand": 0.397352,
+        "vicprice": 0.002048,
+        "vicdemand": 0.306577,
+        "transfer": 0.530263
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.30479227954192684,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 22560,
+      "trial_order": 70,
+      "features": {
+        "day": 3.0,
+        "period": 0.87234,
+        "nswprice": 0.119761,
+        "nswdemand": 0.718239,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.3786220093125186,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 25370,
+      "trial_order": 71,
+      "features": {
+        "day": 1.0,
+        "period": 0.382979,
+        "nswprice": 0.035277,
+        "nswdemand": 0.412824,
+        "vicprice": 0.002397,
+        "vicdemand": 0.287157,
+        "transfer": 0.560965
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.742637392779317,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 3320,
+      "trial_order": 72,
+      "features": {
+        "day": 2.0,
+        "period": 0.723404,
+        "nswprice": 0.111805,
+        "nswdemand": 0.739215,
+        "vicprice": 0.00743,
+        "vicdemand": 0.63102,
+        "transfer": 0.603509
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9986889821213347,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 24727,
+      "trial_order": 73,
+      "features": {
+        "day": 2.0,
+        "period": 0.191489,
+        "nswprice": 0.078209,
+        "nswdemand": 0.235793,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.7168420074878789,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 9659,
+      "trial_order": 74,
+      "features": {
+        "day": 2.0,
+        "period": 0.93617,
+        "nswprice": 0.088507,
+        "nswdemand": 0.491967,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.10219116518468896,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 12575,
+      "trial_order": 75,
+      "features": {
+        "day": 0.0,
+        "period": 0.553191,
+        "nswprice": 0.086376,
+        "nswdemand": 0.416989,
+        "vicprice": 0.004541,
+        "vicdemand": 0.420249,
+        "transfer": 0.707018
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9855260527835448,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 7364,
+      "trial_order": 76,
+      "features": {
+        "day": 0.0,
+        "period": 0.87234,
+        "nswprice": 0.028942,
+        "nswdemand": 0.324308,
+        "vicprice": 0.001651,
+        "vicdemand": 0.350854,
+        "transfer": 0.750439
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.745582536498118,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 7675,
+      "trial_order": 77,
+      "features": {
+        "day": 5.0,
+        "period": 1.0,
+        "nswprice": 0.035427,
+        "nswdemand": 0.441982,
+        "vicprice": 0.002318,
+        "vicdemand": 0.412481,
+        "transfer": 0.645614
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.8990093096407495,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 23370,
+      "trial_order": 78,
+      "features": {
+        "day": 1.0,
+        "period": 0.978723,
+        "nswprice": 0.041642,
+        "nswdemand": 0.536894,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.5950856278836948,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 6693,
+      "trial_order": 79,
+      "features": {
+        "day": 6.0,
+        "period": 0.829787,
+        "nswprice": 0.048337,
+        "nswdemand": 0.363285,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.7979020663204321,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 8099,
+      "trial_order": 80,
+      "features": {
+        "day": 2.0,
+        "period": 0.106383,
+        "nswprice": 0.03996,
+        "nswdemand": 0.291877,
+        "vicprice": 0.002524,
+        "vicdemand": 0.33014,
+        "transfer": 0.695175
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8787571127097807,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 23788,
+      "trial_order": 81,
+      "features": {
+        "day": 6.0,
+        "period": 0.319149,
+        "nswprice": 0.070163,
+        "nswdemand": 0.201577,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.6278626481194116,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 7669,
+      "trial_order": 82,
+      "features": {
+        "day": 1.0,
+        "period": 1.0,
+        "nswprice": 0.080341,
+        "nswdemand": 0.381137,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.7693192447012952,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 23041,
+      "trial_order": 83,
+      "features": {
+        "day": 6.0,
+        "period": 0.340426,
+        "nswprice": 0.044674,
+        "nswdemand": 0.409253,
+        "vicprice": 0.002904,
+        "vicdemand": 0.315122,
+        "transfer": 0.700877
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.7015404524347637,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 17022,
+      "trial_order": 84,
+      "features": {
+        "day": 4.0,
+        "period": 0.0,
+        "nswprice": 0.036658,
+        "nswdemand": 0.528414,
+        "vicprice": 0.002518,
+        "vicdemand": 0.3884,
+        "transfer": 0.462719
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.29111784881064634,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 12625,
+      "trial_order": 85,
+      "features": {
+        "day": 4.0,
+        "period": 0.574468,
+        "nswprice": 0.113726,
+        "nswdemand": 0.590747,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9328647268323724,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 9912,
+      "trial_order": 86,
+      "features": {
+        "day": 2.0,
+        "period": 0.744681,
+        "nswprice": 0.032094,
+        "nswdemand": 0.549093,
+        "vicprice": 0.002102,
+        "vicdemand": 0.529259,
+        "transfer": 0.382895
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9016435813798831,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 28040,
+      "trial_order": 87,
+      "features": {
+        "day": 4.0,
+        "period": 0.361702,
+        "nswprice": 0.074577,
+        "nswdemand": 0.497471,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.49533449362337434,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 12907,
+      "trial_order": 88,
+      "features": {
+        "day": 2.0,
+        "period": 0.106383,
+        "nswprice": 0.080581,
+        "nswdemand": 0.258554,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.050317612906927774,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 28388,
+      "trial_order": 89,
+      "features": {
+        "day": 2.0,
+        "period": 0.489362,
+        "nswprice": 0.109793,
+        "nswdemand": 0.57111,
+        "vicprice": 0.007407,
+        "vicdemand": 0.490161,
+        "transfer": 0.517982
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8275509824979688,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 30114,
+      "trial_order": 90,
+      "features": {
+        "day": 3.0,
+        "period": 0.148936,
+        "nswprice": 0.053771,
+        "nswdemand": 0.250372,
+        "vicprice": 0.003459,
+        "vicdemand": 0.340497,
+        "transfer": 0.739912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.7975109109326909,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 23692,
+      "trial_order": 91,
+      "features": {
+        "day": 2.0,
+        "period": 0.0,
+        "nswprice": 0.081542,
+        "nswdemand": 0.546564,
+        "vicprice": 0.005336,
+        "vicdemand": 0.474625,
+        "transfer": 0.627193
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9908242541329442,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 33012,
+      "trial_order": 92,
+      "features": {
+        "day": 6.0,
+        "period": 0.042553,
+        "nswprice": 0.062598,
+        "nswdemand": 0.334276,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.49781281286067375,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 348,
+      "trial_order": 93,
+      "features": {
+        "day": 0.0,
+        "period": 0.489362,
+        "nswprice": 0.093821,
+        "nswdemand": 0.576763,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.7015404524347637,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 7903,
+      "trial_order": 94,
+      "features": {
+        "day": 3.0,
+        "period": 0.914894,
+        "nswprice": 0.045485,
+        "nswdemand": 0.567242,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9837787393450697,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 28884,
+      "trial_order": 95,
+      "features": {
+        "day": 6.0,
+        "period": 0.744681,
+        "nswprice": 0.044794,
+        "nswdemand": 0.369384,
+        "vicprice": 0.002906,
+        "vicdemand": 0.363283,
+        "transfer": 0.662719
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.8652363893558085,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 25014,
+      "trial_order": 96,
+      "features": {
+        "day": 6.0,
+        "period": 0.978723,
+        "nswprice": 0.114117,
+        "nswdemand": 0.374888,
+        "vicprice": 0.007341,
+        "vicdemand": 0.362506,
+        "transfer": 0.649123
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8741340899786936,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 29483,
+      "trial_order": 97,
+      "features": {
+        "day": 1.0,
+        "period": 0.93617,
+        "nswprice": 0.034076,
+        "nswdemand": 0.457602,
+        "vicprice": 0.002322,
+        "vicdemand": 0.327033,
+        "transfer": 0.380263
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9999945039231452,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 15714,
+      "trial_order": 98,
+      "features": {
+        "day": 0.0,
+        "period": 0.425532,
+        "nswprice": 0.051129,
+        "nswdemand": 0.335466,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9608559605896292,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 16256,
+      "trial_order": 99,
+      "features": {
+        "day": 4.0,
+        "period": 0.659574,
+        "nswprice": 0.060526,
+        "nswdemand": 0.468015,
+        "vicprice": 0.00413,
+        "vicdemand": 0.53392,
+        "transfer": 0.311404
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9837787393450697,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 31158,
+      "trial_order": 100,
+      "features": {
+        "day": 2.0,
+        "period": 0.957447,
+        "nswprice": 0.090219,
+        "nswdemand": 0.579887,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8990093096407495,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 80,
+      "trial_order": 101,
+      "features": {
+        "day": 0.0,
+        "period": 0.93617,
+        "nswprice": 0.082803,
+        "nswdemand": 0.350788,
+        "vicprice": 0.005235,
+        "vicdemand": 0.31797,
+        "transfer": 0.711404
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9387487605673825,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 20924,
+      "trial_order": 102,
+      "features": {
+        "day": 6.0,
+        "period": 0.489362,
+        "nswprice": 0.077609,
+        "nswdemand": 0.408063,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.5936920631147705,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 28283,
+      "trial_order": 103,
+      "features": {
+        "day": 5.0,
+        "period": 0.553191,
+        "nswprice": 0.044134,
+        "nswdemand": 0.342011,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9472956919905471,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 2417,
+      "trial_order": 104,
+      "features": {
+        "day": 6.0,
+        "period": 0.042553,
+        "nswprice": 0.027861,
+        "nswdemand": 0.23371,
+        "vicprice": 0.001897,
+        "vicdemand": 0.33739,
+        "transfer": 0.413596
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9421708392920666,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 28504,
+      "trial_order": 105,
+      "features": {
+        "day": 4.0,
+        "period": 0.893617,
+        "nswprice": 0.045965,
+        "nswdemand": 0.367896,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.7015404524347637,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 2059,
+      "trial_order": 106,
+      "features": {
+        "day": 0.0,
+        "period": 0.659574,
+        "nswprice": 0.043953,
+        "nswdemand": 0.312556,
+        "vicprice": 0.002856,
+        "vicdemand": 0.266183,
+        "transfer": 0.714035
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8666993864827097,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 3003,
+      "trial_order": 107,
+      "features": {
+        "day": 2.0,
+        "period": 0.06383,
+        "nswprice": 0.049538,
+        "nswdemand": 0.417287,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.7727890425488162,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 29982,
+      "trial_order": 108,
+      "features": {
+        "day": 0.0,
+        "period": 0.829787,
+        "nswprice": 0.060106,
+        "nswdemand": 0.45909,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.9799268103478518,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 33393,
+      "trial_order": 109,
+      "features": {
+        "day": 2.0,
+        "period": 0.723404,
+        "nswprice": 0.097454,
+        "nswdemand": 0.486016,
+        "vicprice": 0.006701,
+        "vicdemand": 0.688762,
+        "transfer": 0.32807
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.9999945039231452,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 14009,
+      "trial_order": 110,
+      "features": {
+        "day": 5.0,
+        "period": 0.829787,
+        "nswprice": 0.029933,
+        "nswdemand": 0.483487,
+        "vicprice": 0.002146,
+        "vicdemand": 0.544795,
+        "transfer": 0.2
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.3509021081431812,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 16903,
+      "trial_order": 111,
+      "features": {
+        "day": 3.0,
+        "period": 0.106383,
+        "nswprice": 0.029002,
+        "nswdemand": 0.276406,
+        "vicprice": 0.001832,
+        "vicdemand": 0.392543,
+        "transfer": 0.546491
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.7975109109326909,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 5242,
+      "trial_order": 112,
+      "features": {
+        "day": 5.0,
+        "period": 0.170213,
+        "nswprice": 0.031134,
+        "nswdemand": 0.292324,
+        "vicprice": 0.001992,
+        "vicdemand": 0.388918,
+        "transfer": 0.737719
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.6051865766334205,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 8436,
+      "trial_order": 113,
+      "features": {
+        "day": 6.0,
+        "period": 0.276596,
+        "nswprice": 0.03975,
+        "nswdemand": 0.202172,
+        "vicprice": 0.002727,
+        "vicdemand": 0.233817,
+        "transfer": 0.366228
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8851833170531359,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 27236,
+      "trial_order": 114,
+      "features": {
+        "day": 0.0,
+        "period": 0.680851,
+        "nswprice": 0.048517,
+        "nswdemand": 0.479768,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.30479227954192684,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 6497,
+      "trial_order": 115,
+      "features": {
+        "day": 1.0,
+        "period": 0.680851,
+        "nswprice": 0.042212,
+        "nswdemand": 0.380393,
+        "vicprice": 0.002846,
+        "vicdemand": 0.301139,
+        "transfer": 0.654825
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.766945237171846,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 10493,
+      "trial_order": 116,
+      "features": {
+        "day": 5.0,
+        "period": 0.0,
+        "nswprice": 0.025039,
+        "nswdemand": 0.355698,
+        "vicprice": 0.001597,
+        "vicdemand": 0.352926,
+        "transfer": 0.811404
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 1,
+      "c_star": 0.8652363893558085,
+      "complexity_bin": "mid"
+    },
+    {
+      "item_id": 16672,
+      "trial_order": 117,
+      "features": {
+        "day": 5.0,
+        "period": 0.765957,
+        "nswprice": 0.072475,
+        "nswdemand": 0.370277,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.8850686110821975,
+      "complexity_bin": "high"
+    },
+    {
+      "item_id": 28615,
+      "trial_order": 118,
+      "features": {
+        "day": 2.0,
+        "period": 0.085106,
+        "nswprice": 0.036658,
+        "nswdemand": 0.416394,
+        "vicprice": 0.00168,
+        "vicdemand": 0.41999,
+        "transfer": 0.765789
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.44461943798920506,
+      "complexity_bin": "low"
+    },
+    {
+      "item_id": 3352,
+      "trial_order": 119,
+      "features": {
+        "day": 5.0,
+        "period": 1.0,
+        "nswprice": 0.047526,
+        "nswdemand": 0.274472,
+        "vicprice": 0.003467,
+        "vicdemand": 0.422915,
+        "transfer": 0.414912
+      },
+      "feature_labels": {
+        "day": "Day of week (1-7)",
+        "period": "Half-hour period (1-48)",
+        "nswprice": "NSW electricity price (norm.)",
+        "nswdemand": "NSW demand (norm.)",
+        "vicprice": "Victoria price (norm.)",
+        "vicdemand": "Victoria demand (norm.)",
+        "transfer": "Inter-state transfer (norm.)"
+      },
+      "y_true": 0,
+      "c_star": 0.519173468724264,
+      "complexity_bin": "low"
+    }
+  ]
+}

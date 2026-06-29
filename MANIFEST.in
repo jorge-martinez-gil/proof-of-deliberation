@@ -1,0 +1,13 @@
+include LICENSE
+include README.md
+include CHANGELOG.md
+include CITATION.cff
+include pyproject.toml
+include requirements*.txt
+recursive-include configs *.json
+recursive-include docs *.md
+graft src/pod
+prune archive
+prune PoD_code
+global-exclude __pycache__
+global-exclude *.py[cod]

@@ -1,295 +1,364 @@
-# 🧠 Proof-of-Deliberation (PoD)
+# Proof-of-Deliberation (PoD)
 
-> **A deliberation-aware gating mechanism for human-in-the-loop active learning.**  
-> PoD monitors *how* a human annotator responds — not just *what* they label — and uses response-time dynamics to filter out low-quality annotations caused by gaming or fatigue before they corrupt a streaming classifier.
+> Reference implementation for
+> **J. Martinez-Gil. _Proof-of-Deliberation for Certifying Human
+> Supervision Reliability in Streaming Data Quality_. IEEE
+> Transactions on Knowledge and Data Engineering, 2026.**
 
----
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
+[![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
+[![Tests: pytest](https://img.shields.io/badge/tested%20with-pytest-0A9EDC.svg)](https://docs.pytest.org/)
 
-## ✨ Overview
+PoD is a process-based supervision-certification protocol for streaming
+Human-in-the-Loop active learning. It attaches a credibility signal to
+every human-generated label using *observable interaction traces* --
+the deliberation time and its coupling with task difficulty -- rather
+than the label content itself, and gates model updates accordingly.
 
-In human-in-the-loop machine learning, label quality depends on whether the annotator truly *deliberates* over each decision. **Proof-of-Deliberation** operationalizes this idea:
-
-1. **Complexity estimation** — the model computes a per-sample complexity score *C*ₜ (predictive entropy or known boundary distance).
-2. **Deliberation gating** — the operator's response time *D*ₜ is checked against a complexity-calibrated expected window. Labels whose response time is implausibly short (gaming) or erratically long (fatigue) are **rejected before training**.
-3. **Behavioral monitoring** — a sliding-window Spearman coupling test, a gaming detector, and a fatigue detector jointly guard the training loop across three operator *phases*: Baseline → Gaming → Fatigue.
-
-PoD is compared against three baselines across three benchmark datasets, validating both classification performance and theoretical grounding via the **Hick-Hyman Law** on real Air Traffic Control corpora.
-
----
-
-## 📁 Repository Structure
-
-```
-proof-of-deliberation/
-│
-├── pod-unified.py              # Main experiment runner (Elec2, Gas Drift, Synth-Boundary)
-├── pod-unified2.py             # Extended variant with additional configurations
-├── pod_elec.py                 # Electricity-dataset-focused experiments
-├── pod_unified (1).py          # Alternative unified runner
-│
-├── hick_hyman_validation.py        # Hick-Hyman law validation (v1)
-├── hick_hyman_pod_validation_v2.py # Hick-Hyman validation v2 (OOF + calibration)
-├── hick_hyman_pod_validation.png   # Output figure from validation
-│
-├── PoD_code/
-│   ├── app.html        # Real-time MQTT-based PoD dashboard (browser)
-│   ├── server.html     # MQTT server configuration page
-│   ├── config.json     # MQTT broker + topic configuration
-│   ├── data.csv        # Sample sensor data
-│   └── logo.png        # PoD project logo
-│
-└── LICENSE             # MIT License
-```
+This repository is the official, reproducible companion to the paper.
+It packages the protocol as an installable Python library
+(`pod`), exposes two console-script entry points
+(`pod-experiments`, `pod-validate`), and ships frozen configurations,
+unit tests, and per-dataset reproduction recipes.
 
 ---
 
-## 🔬 Methods Compared
+## Contents
 
-| Method | Description |
-|---|---|
-| **AL** | Standard active learning — all queried labels are accepted unconditionally |
-| **StaticGating** | Accepts labels only when deliberation time exceeds a fixed threshold (510 ms) |
-| **AdaptiveGating** | Accepts labels when response time falls within a complexity-scaled window |
-| **PoD** *(ours)* | Full gating: adaptive gate + Spearman coupling + gaming/fatigue detection |
-
----
-
-## 📊 Datasets
-
-| Dataset | Source | Classes | Description |
-|---|---|---|---|
-| **Elec2** | OpenML (id 44156) | 2 | Electricity demand stream (New South Wales) |
-| **UCI224 Gas Drift** | UCI Repository | 6 | Gas sensor array — concept drift over 10 batches |
-| **Synth-Boundary** | Generated | 2 | Rotating decision boundary with controlled operator phases |
-| **ATCO2 / UWB-ATCC** | HuggingFace | — | Air Traffic Control speech for Hick-Hyman validation |
+- [Quickstart](#quickstart)
+- [Repository layout](#repository-layout)
+- [The PoD protocol at a glance](#the-pod-protocol-at-a-glance)
+- [Reproducing the paper](#reproducing-the-paper)
+- [Hick-Hyman validation on ATC logs](#hick-hyman-validation-on-atc-logs)
+- [Real-user labeling study](#real-user-labeling-study)
+- [Development](#development)
+- [Real-time PoD dashboard](#real-time-pod-dashboard)
+- [Citation](#citation)
+- [License](#license)
 
 ---
 
-## ⚙️ Requirements
-
-**Python ≥ 3.9** is required.
-
-### Core dependencies (streaming experiments)
-
-```bash
-pip install numpy pandas matplotlib scikit-learn scipy
-```
-
-### Additional dependencies (Hick-Hyman validation)
-
-```bash
-pip install datasets statsmodels
-```
-
-### Full install (recommended)
-
-```bash
-pip install numpy pandas matplotlib scikit-learn scipy datasets statsmodels
-```
-
-> **Note:** The Gas Drift dataset (~4 MB zip) is downloaded automatically from the UCI repository on first run and cached in `data_cache_uci224/`.  
-> The ATC corpora are downloaded from HuggingFace Hub on first run.
-
----
-
-## 🚀 Quickstart — Reproducing the Main Experiments
-
-### 1. Clone the repository
+## Quickstart
 
 ```bash
 git clone https://github.com/jorge-martinez-gil/proof-of-deliberation.git
 cd proof-of-deliberation
+
+# Editable install with the streaming-experiment dependencies
+pip install -e .
+
+# Reproduce the three F1 trajectory figures from Section 6
+pod-experiments --datasets synth,elec2,gas
 ```
 
-### 2. Install dependencies
+For the Hick-Hyman validation (Section 6.5), install the extra group:
 
 ```bash
-pip install numpy pandas matplotlib scikit-learn scipy datasets statsmodels
+pip install -e ".[validation]"
+pod-validate --out hick_hyman_pod_validation_v2.png
 ```
 
-### 3. Run the unified experiment suite
-
-Run all three datasets (Synth-Boundary, Elec2, Gas Drift) with default parameters:
+For developers (tests, lint, type-check):
 
 ```bash
-python pod-unified.py
-```
-
-Outputs are written to `out_pod_unified/<dataset>/`:
-- `figs/<dataset>_methods_f1.pdf` — F1 performance plot (mean ± 95% CI)
-- `figs/<dataset>_methods_f1.png` — same, PNG format
-- `runs/<dataset>_<method>_run<N>.csv` — per-run time-series
-- `diagnostics.csv` — query/accept rates per phase and method
-- `config.json` — full experiment configuration snapshot
-
-### 4. Run a specific dataset only
-
-```bash
-# Only the synthetic boundary dataset
-python pod-unified.py --datasets synth
-
-# Only the Electricity dataset
-python pod-unified.py --datasets elec2
-
-# Only the Gas Drift dataset
-python pod-unified.py --datasets gas
-
-# Multiple datasets
-python pod-unified.py --datasets synth,elec2
-```
-
-### 5. Quick smoke-test (fast run)
-
-For a rapid end-to-end check with fewer samples and runs:
-
-```bash
-python pod-unified.py \
-  --datasets synth \
-  --runs 3 \
-  --baseline 500 \
-  --gaming 500 \
-  --fatigue 500 \
-  --synth_pool 5000 \
-  --holdout 1000
+pip install -e ".[dev]"
+pytest
+ruff check src tests
+mypy src/pod
 ```
 
 ---
 
-## 🔁 Full Reproducibility
+## Repository layout
 
-### Exact parameters used in the paper
-
-The per-dataset hyperparameters are embedded as `cfg_elec2()`, `cfg_gas()`, and `cfg_synth()` functions inside `pod-unified.py`. They are applied automatically when running the corresponding dataset. The default is **20 independent runs** per dataset.
-
-To reproduce the full results as reported:
-
-```bash
-python pod-unified.py --datasets synth,elec2,gas
+```
+proof-of-deliberation/
+|
++-- src/pod/                # Installable package
+|   +-- __init__.py
+|   +-- config.py           # Frozen dataclasses (Section 4 notation)
+|   +-- core.py             # Gate, coupling, vigilance checks
+|   +-- operator.py         # Stochastic operator simulator
+|   +-- learner.py          # SGD wrapper + decision-function softmax
+|   +-- baselines.py        # AL, StaticGating, AdaptiveGating
+|   +-- experiment.py       # Closed-loop runner and aggregator
+|   +-- viz.py              # Publication-grade plotting
+|   +-- presets.py          # Frozen per-dataset hyperparameters
+|   +-- streams/            # Synth-Boundary, OpenML, UCI 224 loaders
+|   +-- validation/         # Hick-Hyman pipeline on ATC corpora
+|   +-- cli/                # `pod-experiments`, `pod-validate`
+|
++-- configs/                # JSON snapshots matching presets.py
++-- experiments/            # Extended-regime, ablation, and robustness runners
++-- scripts/                # Stats-report and claim-checking utilities
++-- tests/                  # pytest suite (unit + integration)
++-- docs/                   # Notation, reproducibility, architecture
++-- PoD_code/               # Browser-based MQTT dashboard + labeling app
++-- archive/                # Pre-refactor scripts (do NOT use)
+|
++-- Makefile                # Reproducibility entry points (`make paper`)
++-- pyproject.toml          # PEP 621 packaging + tooling config
++-- requirements*.txt       # Pinned dependency manifests
++-- CITATION.cff            # Software citation metadata
++-- CHANGELOG.md            # Project changelog
++-- LICENSE                 # MIT
++-- README.md               # This file
 ```
 
-> Expected wall-clock time: ~10–30 minutes depending on hardware (Elec2 and Gas downloads add a one-time overhead).
-
-### Seeding
-
-All random number generation uses `numpy.random.default_rng(seed)` with deterministic seeds derived from the run index (e.g., `seed = 1000 * run_idx + 7`). Results are reproducible across identical hardware and Python/NumPy versions.
-
-### Saved configuration
-
-Every run writes a `config.json` snapshot to the output directory. This can be used to verify or re-run the exact parameter set:
-
-```bash
-cat out_pod_unified/elec2/config.json
-```
+Generated experiment outputs (`out_*/`) and downloaded datasets
+(`data_cache_uci224/`, etc.) are produced on demand by the runners and
+are intentionally not tracked; see the reproduction recipes below.
 
 ---
 
-## 📐 Hick-Hyman Validation (Theoretical Grounding)
+## The PoD protocol at a glance
 
-PoD's complexity signal is theoretically grounded in the **Hick-Hyman Law**, which predicts that response time increases monotonically with decision complexity (measured by entropy). We validate this empirically on real ATC speech data.
+For each queried label, PoD checks three independent signals:
 
-### Run validation v2 (recommended — OOF + calibrated)
+| Layer            | Symbol              | Implementation                                                          |
+|------------------|---------------------|-------------------------------------------------------------------------|
+| Deliberation gate    | `V_t`           | [`pod.core.gate_check`](src/pod/core.py)                                |
+| Cognitive coupling   | `rho_cog`       | [`pod.core.coupling_check`](src/pod/core.py)                            |
+| Multi-scale vigilance | `S_vig`        | [`pod.core.gaming_detector`](src/pod/core.py), [`pod.core.fatigue_detector`](src/pod/core.py) |
+
+A label is incorporated into the learner only when *all three* checks
+agree, mirroring the composite verification function
+
+```
+V(pi_t) = (V_t = 1) AND (rho_cog > epsilon) AND (S_vig = 1)
+```
+
+defined in Section 4.4 of the paper. See [`docs/NOTATION.md`](docs/NOTATION.md)
+for the complete symbol-to-code mapping.
+
+---
+
+## Reproducing the paper
+
+The reference experiments compare PoD against four baselines and three
+ablation variants on five streams (Synth-Boundary, Electricity,
+Gas Drift, Forest CoverType, Airlines) under three operator regimes
+(Baseline, Gaming, Fatigue):
+
+| Family       | Method            | Decision rule                                   |
+|--------------|-------------------|-------------------------------------------------|
+| Baselines    | `AL`              | Accept every queried label.                     |
+|              | `StaticGating`    | Accept iff `delib_ms >= 510`.                   |
+|              | `AdaptiveGating`  | Difficulty-scaled deliberation window only.     |
+|              | `WorkerQuality`   | Online Dawid-Skene single-annotator posterior.  |
+| PoD          | `PoD`             | Composite verification (gate + coupling + S_vig).|
+| Ablations    | `PoD-NoGate`      | Drop V_t; keep coupling and vigilance.          |
+|              | `PoD-NoCoupling`  | Drop rho_cog; keep V_t and vigilance.           |
+|              | `PoD-NoVigilance` | Drop gaming + fatigue detectors; keep V_t, rho. |
+
+### Full reproduction (20 runs per dataset)
 
 ```bash
-python hick_hyman_pod_validation_v2.py
+pod-experiments --datasets synth,elec2,gas,covertype,airlines
 ```
 
-This script:
-1. Downloads the `Jzuluaga/atco2_corpus_1h` and `Jzuluaga/uwb_atcc` corpora from HuggingFace
-2. Builds pilot → controller response pairs with measured delays
-3. Computes out-of-fold (OOF) model entropy via 5-fold × 3-seed ensemble + isotonic calibration + temperature scaling
-4. Runs Spearman ρ tests: model entropy *C*ₜ vs delay, plus linguistic contrast proxies
-5. Saves `hick_hyman_pod_validation_v2.png`
-
-### Run validation v1 (baseline)
-
-```bash
-python hick_hyman_validation.py
-```
-
----
-
-## 🌐 Real-Time PoD Dashboard
-
-The `PoD_code/` directory contains a browser-based dashboard for monitoring the PoD gate in real time via MQTT.
-
-### Setup
-
-1. Open `PoD_code/config.json` and configure your MQTT broker:
-
-```json
-{
-    "brokerURL": "wss://broker.emqx.io:8084/mqtt",
-    "inputTopic":  "input",
-    "outputTopic": "output",
-    "inputs":  [{"name": "Temperature", "value": ""}, ...],
-    "outputs": [{"name": "Target",      "value": ""}]
-}
-```
-
-2. Open `PoD_code/app.html` directly in a web browser (no server required).
-
-3. The dashboard connects to the configured MQTT broker and visualizes live sensor inputs and classification outputs.
-
-> The default broker `broker.emqx.io` is a public test broker — **do not use for sensitive data**. Replace with your own broker for production use.
-
----
-
-## 🧪 Key CLI Arguments
-
-| Argument | Default | Description |
-|---|---|---|
-| `--datasets` | `synth,elec2,gas` | Comma-separated list of datasets to run |
-| `--out` | `out_pod_unified` | Output directory |
-| `--runs` | `2` | Number of independent runs (20 for full results) |
-| `--baseline` | `2000` | Length of baseline phase (time steps) |
-| `--gaming` | `2000` | Length of gaming phase |
-| `--fatigue` | `2000` | Length of fatigue phase |
-| `--init_fit` | `20` | Initial warm-up samples before streaming begins |
-| `--eval_every` | `10` | Evaluate F1 every N time steps |
-| `--eval_window` | `600` | Holdout window size for F1 evaluation |
-| `--log_tmax` | `0` | Truncate experiment at this time step (0 = disabled) |
-| `--query_budget` | `0.50` | Fraction of samples queried from the oracle |
-| `--coupling_window` | `20` | Window for Spearman coupling test |
-| `--persist_k` | `3` | Consecutive failures before gating activates |
-| `--cache_dir` | `data_cache_uci224` | Local cache for UCI Gas Drift data |
-
----
-
-## 📈 Expected Output
-
-After a successful run you should see files like:
+This produces, under `out_pod_unified/`:
 
 ```
 out_pod_unified/
-  elec2/
-    figs/
-      elec2_methods_f1.pdf
-      elec2_methods_f1.png
-    runs/
-      elec2_AL_run0.csv
-      elec2_PoD_run0.csv
-      ...
-    diagnostics.csv
-    config.json
-  uci224_gas_drift/
-    ...
-  synth_boundary/
-    ...
++-- synth_boundary/
+|   +-- figs/Synth-Boundary_methods_f1.{pdf,png}     # Figure in Sec. 6
+|   +-- runs/Synth-Boundary_<method>_run<N>.csv      # Per-run F1 trace
+|   +-- diagnostics.csv                              # Query/accept rates
+|   +-- config.json                                  # Frozen config snapshot
++-- elec2/
++-- uci224_gas_drift/
 ```
 
-Each `*_methods_f1.png` shows F1(t) curves for all four methods across operator phases, with shaded 95% confidence intervals.
+### Single-dataset / quick sanity check
+
+```bash
+# 3-run Synth-Boundary smoke test (~30 seconds)
+pod-experiments --datasets synth --runs 3 --baseline 500 --gaming 500 \
+                --fatigue 500 --synth_pool 5000 --holdout 1000
+```
+
+### Seeding and determinism
+
+All randomness is centralised through `numpy.random.default_rng(seed)`.
+The per-run seed is derived deterministically from the run index as
+`1000 * run_idx + 7` (see
+[`pod.experiment.run_suite_generic`](src/pod/experiment.py)). Identical
+hardware, identical Python and NumPy versions, and identical pinned
+dependencies (see [`requirements.txt`](requirements.txt)) reproduce the
+F1 trajectories exactly.
+
+### Configuration provenance
+
+Every run writes a `config.json` next to the figures. To verify that
+your run matches the paper, diff it against the appropriate file in
+[`configs/`](configs/):
+
+```bash
+diff -u configs/synth.json out_pod_unified/synth_boundary/config.json
+```
+
+See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) for the full
+recipe.
+
+### Statistical analysis (TKDE-grade)
+
+After `pod-experiments` has populated `out_pod_unified/`, the companion
+entry point `pod-stats` produces the per-method statistical artefacts
+required for TKDE-style evaluations:
+
+```bash
+pod-stats --in out_pod_unified --reference PoD
+```
+
+This writes, under `out_pod_unified/stats/`:
+
+| Artefact                  | Contents                                                                 |
+|---------------------------|--------------------------------------------------------------------------|
+| `per_run_scores.csv`      | One row per (dataset, method, run) with the scalar score per the chosen reduction (`--score-mode end` or `auc`). |
+| `average_ranks.csv`       | Mean rank of each method across datasets (lower is better).             |
+| `friedman.json`           | Friedman chi-square and Iman-Davenport F omnibus test with both p-values.|
+| `nemenyi_cd.json`         | Critical-difference value `CD` at the chosen alpha (Demsar 2006, Eq. 5).|
+| `cd_diagram.pdf`/`.png`   | Demsar-style critical-difference diagram with NSD cliques.              |
+| `wilcoxon_holm.csv`       | Pairwise Wilcoxon signed-rank vs. the reference method, Holm-corrected. |
+| `bootstrap_ci.csv`        | Percentile bootstrap CI (default 10K resamples) of the mean F1.         |
+| `per_regime_anova.csv`    | One-way ANOVA over regimes from the per-phase accept rates.             |
+| `summary.json`            | Aggregated summary of the full suite.                                   |
 
 ---
 
-## 📄 License
+## Hick-Hyman validation on ATC logs
+
+Section 6.5 of the paper validates that PoD's coupling signal
+corresponds to a property of *real* deliberation rather than an
+artefact of the simulator. The validation uses the
+[`Jzuluaga/atco2_corpus_1h`](https://huggingface.co/datasets/Jzuluaga/atco2_corpus_1h)
+and
+[`Jzuluaga/uwb_atcc`](https://huggingface.co/datasets/Jzuluaga/uwb_atcc)
+corpora from HuggingFace.
+
+```bash
+pip install -e ".[validation]"
+pod-validate --out hick_hyman_pod_validation_v2.png
+```
+
+The pipeline (i) loads ~3,400 pilot-controller pairs, (ii) computes
+out-of-fold predictive entropies with a TF-IDF + isotonic-calibrated
+logistic regression averaged over 3 seeds, (iii) applies post-hoc
+temperature scaling, (iv) runs Spearman tests against controller
+response delay with linguistic-proxy contrasts, and (v) renders the
+summary figure used in the paper.
+
+---
+
+## Real-user labeling study
+
+The simulator results are complemented by a real-user labeling study
+that complements the synthetic operator model.
+Participants label elec2 trials in a browser-based app across three
+induced regimes (baseline, speed-bonus, long-block) while the app
+records millisecond-precision response times. The collected CSVs are
+analysed offline through the same PoD verification primitives used in
+the simulator pipeline.
+
+```bash
+# 1) Build the frozen task pool (once per study).
+python -m pod.realdata.build_pool --out PoD_code/labeling/tasks.json
+
+# 2) Deploy the labeling app (any static server; or open the HTML directly).
+cd PoD_code/labeling && python -m http.server 8000
+
+# 3) Collect participant CSVs in a directory, then analyse.
+pod-realdata --in data_real/ --out out_real/
+```
+
+The end-to-end protocol -- consent text, exclusion criteria, statistical
+tests, and limitations to declare in the paper -- is documented in
+[`docs/REAL_DATA_PROTOCOL.md`](docs/REAL_DATA_PROTOCOL.md). The labeling
+app at [`PoD_code/labeling/app.html`](PoD_code/labeling/app.html) is a
+single-file, offline page: no analytics, no telemetry, no network
+calls.
+
+---
+
+## Development
+
+```bash
+pip install -e ".[dev]"
+
+# Tests (unit + integration smoke)
+pytest                 # ~10 s
+
+# Coverage
+pytest --cov=pod --cov-report=term-missing
+
+# Lint and format checks
+ruff check src tests
+
+# Static type checking
+mypy src/pod
+```
+
+The [`tests/`](tests/) directory covers PoD primitives, the operator
+simulator, stream generation, the comparison baselines, and a tiny
+end-to-end run for every method.
+
+---
+
+## Real-time PoD dashboard
+
+The [`PoD_code/`](PoD_code/) directory contains a single-page,
+browser-based MQTT dashboard that monitors the PoD gate live on a
+deployed sensor stream. Configure your broker in
+[`PoD_code/config.json`](PoD_code/config.json) and open
+[`PoD_code/app.html`](PoD_code/app.html) directly in a browser. The
+default broker (`broker.emqx.io`) is a public test broker; replace it
+with your own for production deployments.
+
+---
+
+## Citation
+
+If you use this software, please cite both the paper and the software
+artefact:
+
+```bibtex
+@article{MartinezGil2026PoD,
+    author    = {Jorge Martinez-Gil},
+    title     = {Proof-of-Deliberation for Certifying Human Supervision
+                 Reliability in Streaming Data Quality},
+    journal   = {IEEE Transactions on Knowledge and Data Engineering},
+    year      = {2026},
+    publisher = {IEEE}
+}
+
+@software{MartinezGil2026PoDSoftware,
+    author  = {Jorge Martinez-Gil},
+    title   = {Proof-of-Deliberation (PoD): reference implementation},
+    year    = {2026},
+    version = {1.0.0},
+    url     = {https://github.com/jorge-martinez-gil/proof-of-deliberation}
+}
+```
+
+The full citation metadata in `CITATION.cff` is GitHub-renderable; click
+the "Cite this repository" button on the project page to copy a BibTeX
+or APA entry.
+
+---
+
+## License
 
 This project is released under the [MIT License](LICENSE).
 
----
+## Acknowledgements
 
-## 🙏 Acknowledgements
-
-- **OpenML** for the Elec2 benchmark dataset
-- **UCI ML Repository** for the Gas Sensor Array Drift dataset (dataset #224)
-- **HuggingFace / Zuluaga et al.** for the `atco2_corpus_1h` and `uwb_atcc` ATC corpora used in the Hick-Hyman validation
-- **scikit-learn**, **NumPy**, **pandas**, **Matplotlib**, and **SciPy** for the scientific computing stack
+- **OpenML** for the Electricity (elec2, data id 44156), Forest CoverType
+  (data id 1596), and Airlines (data id 1169) benchmarks.
+- **UCI Machine Learning Repository** for the Gas Sensor Array Drift
+  dataset (dataset #224).
+- **HuggingFace** and **Zuluaga-Gomez et al.** for the
+  `atco2_corpus_1h` and `uwb_atcc` ATC corpora.
+- The **scikit-learn**, **NumPy**, **pandas**, **Matplotlib**, and
+  **SciPy** projects for the scientific computing stack.

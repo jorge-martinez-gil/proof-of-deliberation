@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: "Proof-of-Deliberation (PoD)"
+message: "If you use this software, please cite the accompanying paper as below."
+type: software
+authors:
+  - given-names: Jorge
+    family-names: Martinez-Gil
+    email: jorgemarcc@gmail.com
+    affiliation: "Software Competence Center Hagenberg GmbH"
+    orcid: "https://orcid.org/0000-0001-7842-9786"
+repository-code: "https://github.com/jorge-martinez-gil/proof-of-deliberation"
+license: MIT
+version: "1.0.0"
+keywords:
+  - active learning
+  - concept drift
+  - human-in-the-loop
+  - operator drift
+  - streaming data
+  - supervision reliability
+  - trustworthy AI
+preferred-citation:
+  type: article
+  title: "Proof-of-Deliberation for Certifying Human Supervision Reliability in Streaming Data Quality"
+  authors:
+    - given-names: Jorge
+      family-names: Martinez-Gil
+      affiliation: "Software Competence Center Hagenberg GmbH"
+  journal: "IEEE Transactions on Knowledge and Data Engineering"
+  year: 2026
+  publisher:
+    name: "IEEE"

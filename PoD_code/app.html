@@ -474,7 +474,6 @@
       </div>
 
       <div class="actions">
-        <a class="btn" href="http://localhost:8501/?file_url=C:/Users/martinez/Documents/GitHub/ci-component/data.csv" target="_blank" rel="noreferrer">Input Analysis</a>
         <a class="btn" href="#temperatureChart">Output Analysis</a>
 
         <span class="pill" title="MQTT connection status">
@@ -1053,7 +1052,7 @@
 - Difference: ${Math.abs(target - predicted)}`;
 
         try{
-          const aiResponse = await sendMessageToChatabase(chatMessage);
+          const aiResponse = await generateLabelReason(chatMessage);
           if (aiResponse && aiResponse.response){
             reasonsCell.value = aiResponse.response;
             row.setAttribute('data-user-modified','true');
@@ -1069,41 +1068,12 @@
       updateBarChart();
     }
 
-    async function sendMessageToChatabase(message){
-      const apiKey = 'd1a408c0-5e75-40ca-99e5-424e830d26ed';
-      const chatbotId = 'MY7q1PRbIMOwFyc7pYCch';
-      const apiUrl = `https://www.chatbase.co/api/v1/chat`;
-
-      try{
-        const response = await fetch(apiUrl, {
-          method:'POST',
-          headers:{
-            'Content-Type':'application/json',
-            'Authorization': `Bearer ${apiKey}`
-          },
-          body: JSON.stringify({
-            messages: [{ content: message, role: "user" }],
-            chatbotId,
-            stream:false
-          })
-        });
-
-        if (!response.ok){
-          const err = await response.json();
-          throw new Error(`${response.status} ${err.message || response.statusText}`);
-        }
-
-        const data = await response.json();
-        if (data && data.text) return { response: summarizeChatResponse(data.text) };
-        return { response: "Invalid response format from Chatbase." };
-      } catch (e){
-        return { response: "Error fetching AI response." };
-      }
-    }
-
-    function summarizeChatResponse(fullText){
-      if (!fullText || fullText.trim().length === 0) return "No clear analysis found.";
-      return fullText.trim().slice(0, 200);
+    async function generateLabelReason(message){
+      // Public release: the dashboard ships without any external AI service,
+      // so it stays fully self-contained (no API keys, no third-party calls).
+      // Replace this stub with your own provider if you want generated
+      // rationales; the argument `message` holds the per-row prompt context.
+      return { response: "Offline mode: no AI rationale generated." };
     }
 
     // ---------------------------

@@ -1,0 +1,48 @@
+{
+  "_comment": "Frozen Synth-Boundary configuration (matches src/pod/presets.py:cfg_synth and the F1 trajectory figure in Section 6 of the paper). Treat as read-only; deviations must be declared in the run's config.json.",
+  "dataset": "synth",
+  "runs": 20,
+  "init_fit": 300,
+  "schedule": {
+    "baseline": 2000,
+    "gaming": 2000,
+    "fatigue": 2000
+  },
+  "AL": {
+    "query_budget": 0.45,
+    "query_temp": 0.90
+  },
+  "PoD": {
+    "coupling_window": 80,
+    "coupling_epsilon": -1.0,
+    "gate_a": 0.0,
+    "gate_b": 600.0,
+    "gate_lo_frac": 0.2,
+    "gate_hi_frac": 0.2,
+    "gate_floor_ms": 460.0,
+    "gate_ceil_ms": 700.0,
+    "gaming_window": 50,
+    "gaming_mu_max_ms": 850.0,
+    "gaming_cv_max": 0.025,
+    "fatigue_window": 60,
+    "fatigue_cv_min": 0.55,
+    "persist_k": 3
+  },
+  "Operator": {
+    "k": 650.0,
+    "c": 270.0,
+    "sigma": 88.0,
+    "c_fast": 600.0,
+    "eps_fast": 1.5,
+    "c_slow": 1100.0,
+    "sigma_high": 2200.0,
+    "p_correct_baseline": 0.7,
+    "p_correct_gaming": 0.07,
+    "p_correct_fatigue": 0.12
+  },
+  "clf": {
+    "alpha": 2e-06,
+    "eta0": 0.03,
+    "average": true
+  }
+}

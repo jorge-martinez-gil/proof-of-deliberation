@@ -1,0 +1,20 @@
+# Pinned runtime dependencies for the streaming experiments.
+#
+# The lower bounds match the versions used to produce the published
+# results; the upper bounds are major-version locks chosen to avoid
+# silent API breaks. Install with:
+#
+#   pip install -r requirements.txt
+#
+# For the optional Hick-Hyman ATC validation, also install:
+#
+#   pip install -r requirements-validation.txt
+#
+# For development (tests, lint, type-check), install:
+#
+#   pip install -r requirements-dev.txt
+numpy>=1.24,<3.0
+pandas>=2.0,<3.0
+matplotlib>=3.7,<4.0
+scikit-learn>=1.3,<2.0
+scipy>=1.10,<2.0

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PoD Labeling Study</title>
+<style>
+  :root{
+    --bg:#f4f7fb; --card:#ffffff; --text:#0f172a; --muted:#64748b;
+    --border:#e2e8f0; --primary:#2563eb; --primary2:#1d4ed8;
+    --ok:#16a34a; --warn:#f59e0b; --bad:#dc2626;
+    --shadow:0 10px 30px rgba(2,6,23,0.10);
+    --r:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--text); background:var(--bg);
+    min-height:100vh;
+  }
+  .wrap{
+    max-width:760px; margin:0 auto; padding:24px 18px 80px;
+  }
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--r);
+    box-shadow:var(--shadow); padding:24px; margin-bottom:18px;
+  }
+  h1{font-size:22px; margin:0 0 12px;}
+  h2{font-size:17px; margin:0 0 8px; color:var(--primary2);}
+  p{margin:6px 0; line-height:1.55;}
+  .muted{color:var(--muted); font-size:13px;}
+  button{
+    border:1px solid var(--border); background:#fff; color:var(--text);
+    padding:10px 16px; border-radius:10px; font-weight:600;
+    cursor:pointer; font-size:14px;
+  }
+  button.primary{background:var(--primary); color:#fff; border-color:var(--primary2);}
+  button.primary:hover{background:var(--primary2);}
+  button:disabled{opacity:0.5; cursor:not-allowed;}
+  input[type=text], select{
+    border:1px solid var(--border); border-radius:8px; padding:8px 10px;
+    font-size:14px; width:100%; max-width:340px;
+  }
+  label{display:block; margin:10px 0 4px; font-weight:500; font-size:14px;}
+  table{border-collapse:collapse; width:100%; margin:12px 0;}
+  th,td{
+    padding:8px 12px; border-bottom:1px solid var(--border); text-align:left;
+    font-size:14px;
+  }
+  th{background:#f8fafc; font-weight:600;}
+  .progress{
+    height:6px; background:#e2e8f0; border-radius:99px; overflow:hidden;
+    margin:10px 0;
+  }
+  .progress-fill{
+    height:100%; background:var(--primary); width:0%; transition:width 0.2s;
+  }
+  .choice-row{
+    display:flex; gap:14px; margin-top:14px; justify-content:center;
+  }
+  .choice-btn{
+    flex:1; max-width:200px; padding:18px 0; font-size:18px; font-weight:700;
+    border-radius:14px; border:2px solid var(--border); background:#fff;
+    cursor:pointer; transition:all 0.1s;
+  }
+  .choice-btn.down{color:var(--bad);}
+  .choice-btn.up{color:var(--ok);}
+  .choice-btn:hover{transform:translateY(-1px); box-shadow:var(--shadow);}
+  .choice-btn:active{transform:translateY(0);}
+  .stim-table{font-variant-numeric: tabular-nums;}
+  .pill{
+    display:inline-block; padding:2px 10px; border-radius:99px;
+    font-size:12px; font-weight:600; background:#eff6ff; color:var(--primary2);
+  }
+  .pill.warn{background:#fef3c7; color:#92400e;}
+  .pill.bad{background:#fee2e2; color:#991b1b;}
+  .pill.ok{background:#dcfce7; color:#166534;}
+  .err{color:var(--bad); font-size:13px; margin-top:8px;}
+  .hint{
+    background:#f0f9ff; border-left:3px solid var(--primary);
+    padding:10px 14px; border-radius:6px; margin:12px 0; font-size:13px;
+  }
+  .row{display:flex; align-items:center; gap:10px;}
+  .feedback-bar{
+    margin-top:14px; padding:10px; border-radius:8px; font-size:14px;
+    text-align:center; font-weight:600;
+  }
+  .fb-ok{background:#dcfce7; color:#166534;}
+  .fb-bad{background:#fee2e2; color:#991b1b;}
+  kbd{
+    background:#f1f5f9; padding:1px 6px; border-radius:4px;
+    border:1px solid var(--border); font-size:12px; font-family:ui-monospace,monospace;
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="root"></div>
+
+<script>
+/* =============================================================================
+   PoD real-user labeling study (paper Section 6.6).
+
+   Single-file, fully offline. The participant opens this HTML in any
+   modern browser, optionally points it at a tasks.json built with
+   `python -m pod.realdata.build_pool`, completes the protocol, and
+   downloads a session CSV at the end. The CSV schema is fixed and
+   documented in src/pod/realdata/loader.py.
+
+   No external network calls are made. No data is uploaded automatically.
+   ========================================================================== */
+
+const SCHEMA_VERSION = 1;
+const CSV_VERSION = 1;
+
+const BLOCK_DEFS = [
+  {
+    key: "baseline",
+    title: "Block 1 of 3 - Baseline",
+    instructions:
+      "Please label each item as accurately as you can. Take the time you " +
+      "need; there is no time pressure for this block.",
+    fraction: 0.34,
+    induced_condition: "baseline",
+  },
+  {
+    key: "speed_bonus",
+    title: "Block 2 of 3 - Speed Bonus",
+    instructions:
+      "In this block we are interested in fast responses. Try to answer " +
+      "each item as quickly as you can while staying reasonable. Faster " +
+      "answers are preferred.",
+    fraction: 0.33,
+    induced_condition: "gaming",
+  },
+  {
+    key: "long_block",
+    title: "Block 3 of 3 - Long Block (no breaks)",
+    instructions:
+      "This is the final and longest block. Please complete it without " +
+      "taking a break. Focus is important; do your best.",
+    fraction: 0.33,
+    induced_condition: "fatigue",
+  },
+];
+
+let state = {
+  screen: "intro",
+  participantId: "",
+  demographics: { age: "", experience: "" },
+  pool: null,
+  trials: [],  // flat list across all blocks, with block tag
+  cursor: 0,
+  blockOf: [],  // block key per trial
+  responses: [],
+  startedAtIso: "",
+  trialShownTs: null,
+  lastFeedback: null,
+};
+
+function uuid4(){
+  // RFC4122 v4
+  const r = crypto.getRandomValues(new Uint8Array(16));
+  r[6] = (r[6] & 0x0f) | 0x40;
+  r[8] = (r[8] & 0x3f) | 0x80;
+  const h = [...r].map(b => b.toString(16).padStart(2,"0")).join("");
+  return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`;
+}
+
+function nowIso(){ return new Date().toISOString(); }
+
+function el(tag, attrs={}, ...children){
+  const e = document.createElement(tag);
+  for (const [k,v] of Object.entries(attrs)){
+    if (k === "style" && typeof v === "object"){
+      Object.assign(e.style, v);
+    } else if (k.startsWith("on") && typeof v === "function"){
+      e.addEventListener(k.slice(2), v);
+    } else if (v !== null && v !== undefined && v !== false){
+      e.setAttribute(k, v === true ? "" : v);
+    }
+  }
+  for (const c of children.flat()){
+    if (c == null || c === false) continue;
+    e.append(c.nodeType ? c : document.createTextNode(c));
+  }
+  return e;
+}
+
+function render(){
+  const root = document.getElementById("root");
+  root.innerHTML = "";
+  const screens = {
+    intro: renderIntro,
+    consent: renderConsent,
+    demographics: renderDemographics,
+    pool_load: renderPoolLoad,
+    instructions: renderInstructions,
+    practice: renderPractice,
+    block_intro: renderBlockIntro,
+    trial: renderTrial,
+    done: renderDone,
+  };
+  root.appendChild((screens[state.screen] || renderIntro)());
+}
+
+/* ---------------------------- Screens ------------------------------------ */
+
+function renderIntro(){
+  return el("div", {class:"card"},
+    el("h1", {}, "Proof-of-Deliberation Labeling Study"),
+    el("p", {},
+      "Thank you for taking part. The study collects anonymous response " +
+      "times and labels on a short Electricity-Market prediction task. " +
+      "It takes about 12-15 minutes and runs entirely in your browser " +
+      "with no data uploaded automatically."
+    ),
+    el("p", {class:"muted"},
+      "By clicking Continue you confirm you are at least 18 years old " +
+      "and agree to the information statement on the next screen."
+    ),
+    el("div", {style:{marginTop:"14px"}},
+      el("button", {class:"primary", onclick: () => goto("consent")}, "Continue")
+    ),
+  );
+}
+
+function renderConsent(){
+  return el("div", {class:"card"},
+    el("h1", {}, "Information Statement"),
+    el("p", {},
+      "Purpose: this study collects per-trial response times and labels " +
+      "to validate the Proof-of-Deliberation (PoD) supervision-certification " +
+      "protocol on real human deliberation."
+    ),
+    el("p", {},
+      "What we record: your responses (UP / DOWN), the millisecond " +
+      "response time per trial, a random participant identifier, your " +
+      "age bracket, and your prior labeling experience."
+    ),
+    el("p", {},
+      "What we do NOT record: your name, email, IP address, browser " +
+      "fingerprint, or any personal identifier. No data leaves your " +
+      "computer unless you choose to share the downloaded CSV."
+    ),
+    el("p", {},
+      "Voluntary participation: you may stop at any time by closing the " +
+      "browser tab. Partial data is retained on your computer only and " +
+      "can be discarded by not downloading the final CSV."
+    ),
+    el("p", {class:"muted"},
+      "This research follows IRB/REC guidelines for minimal-risk online " +
+      "behavioural studies. Please consult docs/REAL_DATA_PROTOCOL.md for " +
+      "the institutional contact relevant to your deployment."
+    ),
+    el("div", {style:{marginTop:"14px", display:"flex", gap:"10px"}},
+      el("button", {onclick: () => window.close()}, "Decline"),
+      el("button", {class:"primary", onclick: () => goto("demographics")}, "I agree, continue"),
+    ),
+  );
+}
+
+function renderDemographics(){
+  return el("div", {class:"card"},
+    el("h1", {}, "A couple of quick questions"),
+    el("label", {for:"age"}, "Age bracket"),
+    el("select", {id:"age", onchange: (e) => state.demographics.age = e.target.value },
+      el("option", {value:""}, "Select..."),
+      el("option", {value:"18-24"}, "18-24"),
+      el("option", {value:"25-34"}, "25-34"),
+      el("option", {value:"35-44"}, "35-44"),
+      el("option", {value:"45-54"}, "45-54"),
+      el("option", {value:"55-64"}, "55-64"),
+      el("option", {value:"65+"}, "65+"),
+      el("option", {value:"prefer_not"}, "Prefer not to say"),
+    ),
+    el("label", {for:"exp"}, "Prior data-labeling experience"),
+    el("select", {id:"exp", onchange: (e) => state.demographics.experience = e.target.value },
+      el("option", {value:""}, "Select..."),
+      el("option", {value:"none"}, "None"),
+      el("option", {value:"some"}, "Some (a few hours total)"),
+      el("option", {value:"experienced"}, "Experienced (regular labeler)"),
+    ),
+    el("p", {id:"demoerr", class:"err"}),
+    el("div", {style:{marginTop:"14px"}},
+      el("button", {class:"primary", onclick: () => {
+        if (!state.demographics.age || !state.demographics.experience){
+          document.getElementById("demoerr").textContent =
+            "Please answer both questions.";
+          return;
+        }
+        goto("pool_load");
+      }}, "Continue"),
+    ),
+  );
+}
+
+function renderPoolLoad(){
+  return el("div", {class:"card"},
+    el("h1", {}, "Loading task pool"),
+    el("p", {}, "The study uses a pre-built task pool (tasks.json) shipped " +
+      "next to this page. If it does not load automatically, please pick " +
+      "the file manually."),
+    el("p", {id:"poolstatus", class:"muted"}, "Looking for tasks.json..."),
+    el("div", {style:{marginTop:"10px"}},
+      el("input", {type:"file", id:"poolfile", accept:".json",
+        onchange: (e) => {
+          const f = e.target.files[0];
+          if (!f) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            try {
+              const data = JSON.parse(ev.target.result);
+              acceptPool(data);
+            } catch (err) {
+              document.getElementById("poolstatus").textContent =
+                "Could not parse JSON: " + err.message;
+            }
+          };
+          reader.readAsText(f);
+        }
+      }),
+    ),
+    el("p", {id:"poolerr", class:"err"}),
+  );
+}
+
+function renderInstructions(){
+  return el("div", {class:"card"},
+    el("h1", {}, "How the task works"),
+    el("p", {},
+      "On each trial you will see a small snapshot of features from the " +
+      "Australian electricity market (price, demand, transfer, etc.). " +
+      "Decide whether the electricity demand on that day-and-period " +
+      "moved UP or DOWN."
+    ),
+    el("p", {},
+      "Click the button or use the keyboard: ",
+      el("kbd", {}, "J"), " for DOWN, ", el("kbd", {}, "K"), " for UP."
+    ),
+    el("div", {class:"hint"},
+      "There are three blocks with slightly different instructions. " +
+      "Please read each block introduction carefully before continuing."
+    ),
+    el("p", {}, "We will start with five practice trials. The practice " +
+      "data is not used in the analysis."),
+    el("div", {style:{marginTop:"14px"}},
+      el("button", {class:"primary", onclick: () => startPractice()}, "Start practice"),
+    ),
+  );
+}
+
+function renderPractice(){
+  return renderTrialCore(/*isPractice=*/true);
+}
+
+function renderBlockIntro(){
+  const def = BLOCK_DEFS[state.blockIdx];
+  return el("div", {class:"card"},
+    el("h1", {}, def.title),
+    el("p", {}, def.instructions),
+    el("p", {class:"muted"},
+      `This block has ${state.blockCounts[state.blockIdx]} trials.`
+    ),
+    el("div", {style:{marginTop:"14px"}},
+      el("button", {class:"primary", onclick: () => startBlock()},
+        state.blockIdx === 0 ? "Start" : "Start next block"),
+    ),
+  );
+}
+
+function renderTrial(){
+  return renderTrialCore(/*isPractice=*/false);
+}
+
+function renderTrialCore(isPractice){
+  const trials = isPractice ? state.practiceTrials : state.trials;
+  const cursor = isPractice ? state.practiceCursor : state.cursor;
+  const total = trials.length;
+  const t = trials[cursor];
+  const tag = isPractice ? "practice" : state.blockOf[cursor];
+
+  const progressPct = Math.round(100 * cursor / Math.max(1, total));
+
+  const rows = Object.entries(t.features).map(([k,v]) =>
+    el("tr", {},
+      el("td", {}, t.feature_labels?.[k] || k),
+      el("td", {}, Number(v).toFixed(3)),
+    )
+  );
+
+  const card = el("div", {class:"card"},
+    el("div", {class:"row", style:{justifyContent:"space-between"}},
+      el("span", {class:"pill"+(isPractice?" warn":"")},
+        isPractice ? "Practice" : BLOCK_DEFS[state.blockIdx].title.split(" - ")[1]),
+      el("span", {class:"muted"}, `Trial ${cursor+1} / ${total}`),
+    ),
+    el("div", {class:"progress"},
+      el("div", {class:"progress-fill", style:{width: progressPct + "%"}}),
+    ),
+    el("h2", {style:{marginTop:"14px"}}, "Did electricity demand move UP or DOWN?"),
+    el("table", {class:"stim-table"},
+      el("thead", {}, el("tr", {}, el("th", {}, "Feature"), el("th", {}, "Value"))),
+      el("tbody", {}, ...rows),
+    ),
+    el("div", {class:"choice-row"},
+      el("button", {class:"choice-btn down", onclick: () => onChoice(0, isPractice)},
+        "DOWN", el("br"), el("span", {class:"muted", style:{fontSize:"12px"}}, "(J)")),
+      el("button", {class:"choice-btn up", onclick: () => onChoice(1, isPractice)},
+        "UP", el("br"), el("span", {class:"muted", style:{fontSize:"12px"}}, "(K)")),
+    ),
+    state.lastFeedback && isPractice
+      ? el("div", {class:"feedback-bar " + (state.lastFeedback.correct ? "fb-ok" : "fb-bad")},
+          state.lastFeedback.correct
+            ? `Correct! Response time: ${state.lastFeedback.delib_ms} ms.`
+            : `That was actually ${state.lastFeedback.truth === 1 ? "UP" : "DOWN"}.`)
+      : null,
+  );
+
+  state.trialShownTs = performance.now();
+  return card;
+}
+
+function renderDone(){
+  const total = state.responses.length;
+  const correct = state.responses.filter(r => r.y_user === r.y_true).length;
+  const acc = (100 * correct / Math.max(1, total)).toFixed(1);
+  return el("div", {class:"card"},
+    el("h1", {}, "Thank you - session complete"),
+    el("p", {}, `You labeled ${total} trials with ${acc}% accuracy.`),
+    el("p", {},
+      "Please click the button below to download your session CSV and " +
+      "share it with the experimenter. The file lives only on your " +
+      "computer until you do."
+    ),
+    el("div", {style:{marginTop:"14px"}},
+      el("button", {class:"primary", onclick: () => downloadCsv()},
+        "Download session CSV"),
+    ),
+    el("p", {class:"muted", style:{marginTop:"14px"}},
+      "You may now close this tab."),
+  );
+}
+
+/* ---------------------------- Wiring ------------------------------------- */
+
+function goto(screen){
+  state.screen = screen;
+  state.lastFeedback = null;
+  render();
+}
+
+async function tryAutoLoadPool(){
+  const status = document.getElementById("poolstatus");
+  try {
+    const r = await fetch("tasks.json", {cache: "no-store"});
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const data = await r.json();
+    acceptPool(data);
+  } catch (err) {
+    if (status) status.textContent = "tasks.json not found next to this page. Please pick it manually below.";
+  }
+}
+
+function acceptPool(data){
+  if (!data || data.schema_version !== SCHEMA_VERSION){
+    document.getElementById("poolerr").textContent =
+      "Unsupported pool schema (expected version " + SCHEMA_VERSION + ").";
+    return;
+  }
+  if (!Array.isArray(data.items) || data.items.length < 30){
+    document.getElementById("poolerr").textContent =
+      "Pool must contain at least 30 items.";
+    return;
+  }
+  state.pool = data;
+
+  // Partition items across the three blocks proportionally, then sample
+  // 5 extras for practice from the *fit* side (we just take 5 random
+  // items here; practice trials are not used in the analysis).
+  const items = [...data.items];
+  for (let i = items.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+
+  state.practiceTrials = items.slice(0, 5);
+  const remaining = items.slice(5);
+
+  // Compute per-block counts respecting BLOCK_DEFS fractions.
+  const counts = BLOCK_DEFS.map((b,i) => Math.floor(b.fraction * remaining.length));
+  let used = counts.reduce((a,b)=>a+b,0);
+  counts[counts.length - 1] += remaining.length - used;
+  state.blockCounts = counts;
+
+  state.trials = [];
+  state.blockOf = [];
+  let off = 0;
+  BLOCK_DEFS.forEach((bd, bi) => {
+    for (let k = 0; k < counts[bi]; k++){
+      state.trials.push(remaining[off]);
+      state.blockOf.push(bd.key);
+      off += 1;
+    }
+  });
+
+  state.participantId = uuid4();
+  state.startedAtIso = nowIso();
+  state.blockIdx = 0;
+  state.practiceCursor = 0;
+  state.cursor = 0;
+  state.blockEnds = counts.reduce((acc, c, i) => {
+    acc.push((acc.length ? acc[acc.length-1] : 0) + c); return acc;
+  }, []);
+  goto("instructions");
+}
+
+function startPractice(){
+  state.practiceCursor = 0;
+  state.lastFeedback = null;
+  goto("practice");
+}
+
+function startBlock(){
+  goto("trial");
+}
+
+function onChoice(label, isPractice){
+  const ts = performance.now();
+  const delib = Math.round(ts - state.trialShownTs);
+  if (isPractice){
+    const t = state.practiceTrials[state.practiceCursor];
+    state.lastFeedback = {
+      correct: label === t.y_true, truth: t.y_true, delib_ms: delib,
+    };
+    state.practiceCursor += 1;
+    if (state.practiceCursor >= state.practiceTrials.length){
+      state.lastFeedback = null;
+      goto("block_intro");
+    } else {
+      render();
+    }
+    return;
+  }
+  const trial = state.trials[state.cursor];
+  const block = state.blockOf[state.cursor];
+  state.responses.push({
+    participant_id: state.participantId,
+    session_id: state.participantId,
+    csv_version: CSV_VERSION,
+    block,
+    induced_condition: BLOCK_DEFS.find(b => b.key === block).induced_condition,
+    trial_idx: state.cursor,
+    item_id: trial.item_id,
+    c_star: trial.c_star,
+    complexity_bin: trial.complexity_bin,
+    y_true: trial.y_true,
+    y_user: label,
+    correct: label === trial.y_true ? 1 : 0,
+    delib_ms: delib,
+    t_shown_perf: state.trialShownTs,
+    t_clicked_perf: ts,
+    t_shown_iso: nowIso(),  // approximate
+    age_bracket: state.demographics.age,
+    experience: state.demographics.experience,
+    started_at_iso: state.startedAtIso,
+  });
+  state.cursor += 1;
+
+  // End of block?
+  const blockEnd = state.blockEnds[state.blockIdx];
+  if (state.cursor >= blockEnd){
+    state.blockIdx += 1;
+    if (state.blockIdx >= BLOCK_DEFS.length){
+      goto("done");
+    } else {
+      goto("block_intro");
+    }
+    return;
+  }
+  render();
+}
+
+function downloadCsv(){
+  if (!state.responses.length){ return; }
+  const cols = [
+    "participant_id","session_id","csv_version","block","induced_condition",
+    "trial_idx","item_id","c_star","complexity_bin",
+    "y_true","y_user","correct","delib_ms",
+    "t_shown_perf","t_clicked_perf","t_shown_iso",
+    "age_bracket","experience","started_at_iso",
+  ];
+  const header = cols.join(",");
+  const rows = state.responses.map(r => cols.map(c => {
+    const v = r[c];
+    if (v == null) return "";
+    if (typeof v === "string" && (v.includes(",") || v.includes('"'))){
+      return '"' + v.replace(/"/g, '""') + '"';
+    }
+    return String(v);
+  }).join(","));
+  const csv = [header, ...rows].join("\n") + "\n";
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  const stamp = new Date().toISOString().replace(/[:.]/g,"-");
+  a.download = `pod_session_${state.participantId.slice(0,8)}_${stamp}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+    a.remove();
+  }, 100);
+}
+
+// Keyboard shortcuts (J = DOWN, K = UP)
+document.addEventListener("keydown", (ev) => {
+  if (ev.target && ["INPUT","SELECT","TEXTAREA"].includes(ev.target.tagName)) return;
+  if (state.screen !== "trial" && state.screen !== "practice") return;
+  if (ev.key === "j" || ev.key === "J") onChoice(0, state.screen === "practice");
+  if (ev.key === "k" || ev.key === "K") onChoice(1, state.screen === "practice");
+});
+
+render();
+// Kick off auto-load once we're on the pool screen.
+const _origRender = render;
+function _maybeAutoLoad(){
+  if (state.screen === "pool_load" && !state.pool){
+    setTimeout(tryAutoLoadPool, 80);
+  }
+}
+render.__hooked = true;
+const _origGoto = goto;
+function gotoWithHook(s){ _origGoto(s); _maybeAutoLoad(); }
+goto = gotoWithHook;
+</script>
+</body>
+</html>

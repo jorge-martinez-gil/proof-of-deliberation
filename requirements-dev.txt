@@ -1,0 +1,8 @@
+# Development-only dependencies: tests, linting, type checking.
+-r requirements.txt
+-r requirements-validation.txt
+pytest>=7.4,<9.0
+pytest-cov>=4.1,<6.0
+ruff>=0.4,<1.0
+mypy>=1.6,<2.0
+types-setuptools
