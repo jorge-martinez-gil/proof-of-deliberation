@@ -197,11 +197,11 @@ diff -u configs/synth.json out_pod_unified/synth_boundary/config.json
 See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) for the full
 recipe.
 
-### Statistical analysis (TKDE-grade)
+### Statistical analysis 
 
 After `pod-experiments` has populated `out_pod_unified/`, the companion
 entry point `pod-stats` produces the per-method statistical artefacts
-required for TKDE-style evaluations:
+required for evaluations:
 
 ```bash
 pod-stats --in out_pod_unified --reference PoD
