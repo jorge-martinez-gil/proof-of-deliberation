@@ -7,8 +7,8 @@
 
 PoD is a process-based supervision-certification protocol for streaming
 Human-in-the-Loop active learning. It attaches a credibility signal to
-every human-generated label using *observable interaction traces* --
-the deliberation time and its coupling with task difficulty -- rather
+every human-generated label using *observable interaction traces*,
+the deliberation time and its coupling with task difficulty, rather
 than the label content itself, and gates model updates accordingly.
 
 This repository is the official, reproducible companion to the paper.
